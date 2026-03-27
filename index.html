@@ -6,7 +6,7 @@
     <meta name="description" content="豪豪的个人博客 - 探索技术与创意的边界">
     <meta name="keywords" content="豪豪,个人博客,开发者,编程,设计,AI">
     <meta name="author" content="豪豪">
-    <title>豪记星</title>
+    <title>豪记星 · 互动空间</title>
     <link rel="icon" type="image/x-icon" href="/tjh.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* 星空画布 */
         #starCanvas {
             position: fixed;
             top: 0;
@@ -42,15 +41,13 @@
             background: #000000;
         }
 
-        /* 主容器 */
         .blog-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
 
-        /* 极简导航 */
         .nav {
             display: flex;
             justify-content: space-between;
@@ -82,28 +79,27 @@
             font-weight: 450;
             font-size: 0.9rem;
             transition: color 0.2s;
-            letter-spacing: 0.2px;
         }
 
         .nav-links a:hover {
             color: #ffffff;
         }
 
-        /* 双栏布局 更简洁 */
+        /* 三栏布局 */
         .grid-main {
             display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 2.5rem;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 2rem;
         }
 
-        /* 左侧卡片 - 极致黑灰玻璃 */
+        /* 左侧卡片 */
         .profile-card {
             background: rgba(8, 8, 12, 0.65);
             backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 1.8rem 1.5rem;
             border: 0.5px solid rgba(255, 255, 255, 0.06);
-            transition: border-color 0.3s;
+            height: fit-content;
         }
 
         .avatar {
@@ -124,7 +120,6 @@
             font-weight: 600;
             text-align: center;
             color: #ffffff;
-            letter-spacing: -0.2px;
             margin-bottom: 0.2rem;
         }
 
@@ -166,7 +161,6 @@
 
         .skill:hover {
             background: rgba(108, 92, 231, 0.3);
-            border-color: rgba(108, 92, 231, 0.5);
         }
 
         .contact-links {
@@ -191,7 +185,6 @@
         .contact-link:hover {
             background: rgba(108, 92, 231, 0.15);
             transform: translateX(3px);
-            border-color: rgba(108, 92, 231, 0.3);
         }
 
         .contact-icon {
@@ -209,7 +202,7 @@
             color: #8f99cf;
         }
 
-        /* 右侧文章区域 - 极简高级 */
+        /* 中间文章区域 */
         .articles-area {
             background: rgba(6, 6, 10, 0.45);
             backdrop-filter: blur(8px);
@@ -218,7 +211,6 @@
             border: 0.5px solid rgba(255,255,255,0.05);
         }
 
-        /* 右侧装饰导航栏 */
         .decor-nav {
             display: flex;
             gap: 2rem;
@@ -231,7 +223,6 @@
             color: #a5aedb;
             font-size: 0.8rem;
             font-weight: 500;
-            letter-spacing: 0.3px;
             transition: color 0.2s;
             position: relative;
         }
@@ -249,7 +240,6 @@
             width: 100%;
             height: 1.5px;
             background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-            border-radius: 2px;
         }
 
         .section-header {
@@ -277,11 +267,6 @@
         .post-item {
             padding-bottom: 1.2rem;
             border-bottom: 0.5px solid rgba(255,255,255,0.05);
-            transition: all 0.2s;
-        }
-
-        .post-item:last-child {
-            border-bottom: none;
         }
 
         .post-meta {
@@ -296,7 +281,6 @@
             font-size: 1.3rem;
             font-weight: 600;
             margin: 0.3rem 0 0.6rem;
-            line-height: 1.35;
         }
 
         .post-title a {
@@ -328,42 +312,241 @@
 
         .read-link:hover {
             gap: 8px;
-            color: #cec5ff;
+        }
+
+        /* 右侧侧边栏 - 互动区域 */
+        .sidebar-right {
+            background: rgba(8, 8, 12, 0.65);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            border: 0.5px solid rgba(255, 255, 255, 0.06);
+            height: fit-content;
+        }
+
+        .interactive-tabs {
+            display: flex;
+            gap: 0.2rem;
+            margin-bottom: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 2rem;
+            padding: 0.2rem;
+            width: 100%;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #b9c2e6;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background: rgba(108, 92, 231, 0.3);
+            color: white;
+            box-shadow: 0 0 6px rgba(108,92,231,0.3);
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+        .tab-pane.active-pane {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 留言板样式 */
+        .comment-list {
+            max-height: 280px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding-right: 0.3rem;
+        }
+        .comment-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 1rem;
+            padding: 0.7rem;
+            margin-bottom: 0.8rem;
+            border-left: 2px solid #6c5ce7;
+        }
+        .comment-name {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #cbc3ff;
+        }
+        .comment-time {
+            font-size: 0.55rem;
+            color: #7a80aa;
+            margin-left: 0.5rem;
+        }
+        .comment-text {
+            font-size: 0.75rem;
+            margin-top: 0.3rem;
+            color: #e0e4ff;
+            word-break: break-word;
+        }
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .comment-form input, .comment-form textarea {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 0.5rem 0.8rem;
+            color: white;
+            font-family: inherit;
+            font-size: 0.75rem;
+            resize: vertical;
+        }
+        .comment-form input:focus, .comment-form textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+        }
+        .btn {
+            background: linear-gradient(135deg, #6c5ce7, #4a3b8f);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.4rem 1rem;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-size: 0.75rem;
+            width: fit-content;
+        }
+        .btn:hover {
+            opacity: 0.85;
+        }
+        .delete-comment {
+            background: none;
+            border: none;
+            color: #fd79a8;
+            cursor: pointer;
+            font-size: 0.65rem;
+            float: right;
+        }
+
+        /* 文件上传 */
+        .upload-area {
+            border: 1px dashed rgba(108,92,231,0.5);
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+        .file-list {
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            color: #b9c2e6;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.05);
+            padding: 0.3rem 0.6rem;
+            border-radius: 2rem;
+            margin-bottom: 0.4rem;
+        }
+        .preview-img {
+            max-width: 100%;
+            max-height: 120px;
+            margin-top: 0.5rem;
+            border-radius: 0.8rem;
+        }
+
+        /* 在线编辑 */
+        .editor-area {
+            background: rgba(0,0,0,0.4);
+            border-radius: 1rem;
+            padding: 0.8rem;
+        }
+        .editor-toolbar {
+            margin-bottom: 0.5rem;
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .editor-content {
+            background: rgba(20,20,30,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0.8rem;
+            padding: 0.6rem;
+            min-height: 140px;
+            color: #eef2ff;
+            font-family: inherit;
+            font-size: 0.8rem;
+            outline: none;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+        .saved-note {
+            margin-top: 0.8rem;
+            font-size: 0.65rem;
+            color: #8f99cf;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 0.5rem;
         }
 
         .footer-note {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             text-align: center;
             font-size: 0.7rem;
             color: #5f689b;
             border-top: 0.5px solid rgba(255,255,255,0.05);
-            padding-top: 1.5rem;
+            padding-top: 1rem;
         }
 
-        @media (max-width: 780px) {
+        /* 响应式 */
+        @media (max-width: 1000px) {
             .grid-main {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-            body {
-                padding: 1.2rem;
+            .sidebar-right {
+                order: 2;
+            }
+            .articles-area {
+                order: 1;
             }
             .profile-card {
-                text-align: center;
-            }
-            .contact-link {
-                justify-content: center;
-            }
-            .bio {
-                text-align: left;
-            }
-            .decor-nav {
-                justify-content: center;
-                gap: 1.2rem;
+                order: 0;
             }
         }
 
-        /* 极简滚动条 */
+        @media (max-width: 780px) {
+            body {
+                padding: 1rem;
+            }
+            .profile-card, .articles-area, .sidebar-right {
+                padding: 1.2rem;
+            }
+            .interactive-tabs {
+                flex-wrap: wrap;
+            }
+            .tab-btn {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.5rem;
+            }
+        }
+
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -374,7 +557,6 @@
             background: #3a3470;
             border-radius: 4px;
         }
-
         ::selection {
             background: rgba(108, 92, 231, 0.4);
             color: white;
@@ -387,7 +569,7 @@
 
 <div class="blog-container">
     <nav class="nav">
-        <div class="logo">豪✦深空笔记</div>
+        <div class="logo">✦ 豪 · 深空笔记</div>
         <div class="nav-links">
             <a href="#">首页</a>
             <a href="#">归档</a>
@@ -396,7 +578,7 @@
     </nav>
 
     <div class="grid-main">
-        <!-- 左侧 个人资料卡（已是最左侧） -->
+        <!-- 左侧 个人卡片 -->
         <aside class="profile-card">
             <div class="avatar">🌌</div>
             <div class="name">豪</div>
@@ -419,7 +601,7 @@
                         <div class="contact-sub">星际邮箱</div>
                     </div>
                 </a>
-                <a href="https://github.com/tjh0614" class="contact-link" target="_blank" rel="noopener">
+                <a href="https://github.com/tjh0614" class="contact-link" target="_blank">
                     <span class="contact-icon">⌨️</span>
                     <div>
                         <div class="contact-text">GitHub</div>
@@ -429,362 +611,256 @@
             </div>
         </aside>
 
-        <!-- 右侧 文章区域 + 装饰导航栏 -->
+        <!-- 中间 文章列表 -->
         <main class="articles-area">
-            <!-- 装饰导航栏：右侧内容上方 -->
             <div class="decor-nav">
                 <a href="#" class="active">星尘笔记</a>
                 <a href="#">灵感清单</a>
                 <a href="#">深空手记</a>
             </div>
-
             <div class="section-header">
                 <h2>／最近星尘</h2>
                 <span style="font-size: 0.7rem; color:#6f78b0;">✦ 4 篇新想</span>
             </div>
             <div class="post-list">
                 <article class="post-item">
-                    <div class="post-meta">
-                        <span>03.18.2025</span>
-                        <span>◈ 6 min read</span>
-                    </div>
+                    <div class="post-meta"><span>03.18.2025</span><span>◈ 6 min read</span></div>
                     <h3 class="post-title"><a href="#">AI 协作 · 重构创造力边界</a></h3>
-                    <p class="post-excerpt">
-                        当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。
-                    </p>
+                    <p class="post-excerpt">当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。</p>
                     <a href="#" class="read-link">探索 →</a>
                 </article>
-
                 <article class="post-item">
-                    <div class="post-meta">
-                        <span>03.08.2025</span>
-                        <span>◈ 4 min read</span>
-                    </div>
+                    <div class="post-meta"><span>03.08.2025</span><span>◈ 4 min read</span></div>
                     <h3 class="post-title"><a href="#">暗色模式设计：超越美学的体验构建</a></h3>
-                    <p class="post-excerpt">
-                        从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。
-                    </p>
+                    <p class="post-excerpt">从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。</p>
                     <a href="#" class="read-link">探索 →</a>
                 </article>
-
                 <article class="post-item">
-                    <div class="post-meta">
-                        <span>02.24.2025</span>
-                        <span>◈ 9 min read</span>
-                    </div>
+                    <div class="post-meta"><span>02.24.2025</span><span>◈ 9 min read</span></div>
                     <h3 class="post-title"><a href="#">独立开发 2.0：工具链与认知盈余</a></h3>
-                    <p class="post-excerpt">
-                        从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。
-                    </p>
+                    <p class="post-excerpt">从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。</p>
                     <a href="#" class="read-link">探索 →</a>
                 </article>
-
                 <article class="post-item">
-                    <div class="post-meta">
-                        <span>02.10.2025</span>
-                        <span>◈ 5 min read</span>
-                    </div>
+                    <div class="post-meta"><span>02.10.2025</span><span>◈ 5 min read</span></div>
                     <h3 class="post-title"><a href="#">星辰语法：生成式艺术与代码</a></h3>
-                    <p class="post-excerpt">
-                        用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。
-                    </p>
+                    <p class="post-excerpt">用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。</p>
                     <a href="#" class="read-link">探索 →</a>
                 </article>
             </div>
-            <div class="footer-note">
+            <div class="footer-note" style="margin-top: 1.5rem;">
                 ✦ 保持好奇，像星星一样燃烧 ✦
             </div>
         </main>
+
+        <!-- 右侧 互动侧边栏 -->
+        <aside class="sidebar-right">
+            <div class="interactive-tabs">
+                <button class="tab-btn active" data-tab="comments">💬 留言</button>
+                <button class="tab-btn" data-tab="upload">📁 上传</button>
+                <button class="tab-btn" data-tab="editor">✍️ 笔记</button>
+            </div>
+
+            <!-- 留言板 -->
+            <div id="comments-pane" class="tab-pane active-pane">
+                <div class="comment-list" id="commentList"></div>
+                <div class="comment-form">
+                    <input type="text" id="commentName" placeholder="你的昵称" maxlength="30">
+                    <textarea id="commentText" rows="2" placeholder="留下你的星语..."></textarea>
+                    <button class="btn" id="submitComment">✨ 发送留言</button>
+                </div>
+            </div>
+
+            <!-- 文件上传 -->
+            <div id="upload-pane" class="tab-pane">
+                <div class="upload-area">
+                    <input type="file" id="fileInput" multiple style="display:none">
+                    <button class="btn" id="uploadBtn">📂 选择文件</button>
+                    <div class="file-list" id="fileList"></div>
+                </div>
+                <div id="filePreview" style="margin-top: 0.8rem;"></div>
+            </div>
+
+            <!-- 在线编辑 -->
+            <div id="editor-pane" class="tab-pane">
+                <div class="editor-area">
+                    <div class="editor-toolbar">
+                        <button class="btn" id="boldBtn" style="padding:0.2rem 0.6rem;"><b>B</b></button>
+                        <button class="btn" id="italicBtn" style="padding:0.2rem 0.6rem;"><i>I</i></button>
+                        <button class="btn" id="saveNoteBtn">💾 保存</button>
+                        <button class="btn" id="clearNoteBtn">🗑️ 清空</button>
+                    </div>
+                    <div id="editableContent" class="editor-content" contenteditable="true"></div>
+                    <div class="saved-note" id="savedNoteInfo"></div>
+                </div>
+            </div>
+        </aside>
     </div>
 </div>
 
 <script>
     (function() {
-        // ---------- 更真实星光背景 + 视差 + 极简流星 ----------
+        // ==================== 星空背景 (完整保留) ====================
         const canvas = document.getElementById('starCanvas');
         let ctx = canvas.getContext('2d');
-        let stars = [];
-        let meteors = [];
+        let stars = [], meteors = [];
         let width, height;
-        
-        // 鼠标位置归一化偏移 (-1..1)
-        let mouseX = 0, mouseY = 0;
-        let targetOffsetX = 0, targetOffsetY = 0;
-        let currentOffsetX = 0, currentOffsetY = 0;
-        
-        // 配置
-        const STAR_COUNT = 800;      // 星星数量更多，更真实
-        const MAX_OFFSET = 18;       // 最大偏移像素
-        
-        // 颜色调色板 (暖白，淡蓝，微橙)
-        const starColors = [
-            'rgba(255, 245, 225, {alpha})',
-            'rgba(235, 240, 255, {alpha})',
-            'rgba(255, 235, 210, {alpha})',
-            'rgba(210, 225, 255, {alpha})'
-        ];
-        
-        // 星星数据结构
+        let targetOffsetX = 0, targetOffsetY = 0, currentOffsetX = 0, currentOffsetY = 0;
+        const STAR_COUNT = 800;
+        const MAX_OFFSET = 18;
+        const starColors = ['rgba(255, 245, 225, {alpha})','rgba(235, 240, 255, {alpha})','rgba(255, 235, 210, {alpha})','rgba(210, 225, 255, {alpha})'];
         class Star {
-            constructor(x, y, radius, baseBrightness, twinkleSpeed, colorType, clusterShiftX = 0, clusterShiftY = 0) {
-                this.x = x;          // 归一化 0..1
-                this.y = y;
-                this.radius = radius;
-                this.baseBrightness = baseBrightness;  // 基础亮度 0.2-1
-                this.twinkleSpeed = twinkleSpeed;
-                this.phase = Math.random() * Math.PI * 2;
-                this.colorType = colorType;
-                // 轻微偏移模拟视差深度 (小星星偏移少)
-                this.depthFactor = Math.min(1.0, radius / 2.8); // 越大星星越近，视差移动更大
+            constructor(x,y,radius,bright,speed,colorType){
+                this.x=x; this.y=y; this.radius=radius; this.baseBrightness=bright; this.twinkleSpeed=speed;
+                this.phase=Math.random()*Math.PI*2; this.colorType=colorType;
+                this.depthFactor=Math.min(1.0, radius/2.8);
             }
-            
-            getAlpha(now) {
-                let twinkle = 0.6 + 0.4 * Math.sin(now * this.twinkleSpeed + this.phase);
-                let alpha = this.baseBrightness * twinkle;
-                return Math.min(0.95, Math.max(0.15, alpha));
-            }
-            
-            getColor(alpha) {
-                let template = starColors[this.colorType % starColors.length];
-                return template.replace('{alpha}', alpha);
-            }
+            getAlpha(now){ let twinkle=0.6+0.4*Math.sin(now*this.twinkleSpeed+this.phase); return Math.min(0.95, Math.max(0.15, this.baseBrightness*twinkle)); }
+            getColor(alpha){ return starColors[this.colorType%starColors.length].replace('{alpha}',alpha); }
         }
-        
-        // 流星对象
         class Meteor {
-            constructor() {
-                // 随机起始点（屏幕外边缘区域）
-                this.x = Math.random() * width;
-                this.y = Math.random() * height * 0.6; // 起始偏上区域
-                this.vx = (Math.random() * 6 + 3) * (Math.random() > 0.5 ? 1 : -1);
-                this.vy = (Math.random() * 5 + 2);
-                // 确保方向大体向左下或右下自然
-                if (Math.abs(this.vx) < 2) this.vx = this.vx > 0 ? 3 : -3;
-                this.length = Math.random() * 40 + 25;
-                this.opacity = 0.9;
-                this.life = 1.0;     // 生命周期
-                this.decay = 0.008 + Math.random() * 0.01;
-            }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.life -= this.decay;
-                return this.life > 0 && this.x + this.length > 0 && this.x - this.length < width && this.y < height + 100;
-            }
-            
-            draw(ctx, now) {
-                let alpha = this.life * 0.8;
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - this.vx * 1.2, this.y - this.vy * 1.2);
-                ctx.lineWidth = 1.8;
-                ctx.strokeStyle = `rgba(255, 235, 200, ${alpha * 0.9})`;
-                ctx.stroke();
-                // 头部光晕
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 2.2, 0, Math.PI*2);
-                ctx.fillStyle = `rgba(255, 210, 150, ${alpha})`;
-                ctx.fill();
-                // 拖尾渐变
-                for(let i=1;i<=3;i++) {
-                    ctx.beginPath();
-                    let backX = this.x - this.vx * (i*1.5);
-                    let backY = this.y - this.vy * (i*1.5);
-                    ctx.arc(backX, backY, 1.5 - i*0.3, 0, Math.PI*2);
-                    ctx.fillStyle = `rgba(255, 200, 140, ${alpha * (0.5 - i*0.1)})`;
-                    ctx.fill();
-                }
-            }
+            constructor(){ this.x=Math.random()*width; this.y=Math.random()*height*0.6; this.vx=(Math.random()*6+3)*(Math.random()>0.5?1:-1); this.vy=Math.random()*5+2; if(Math.abs(this.vx)<2) this.vx=this.vx>0?3:-3; this.life=1.0; this.decay=0.008+Math.random()*0.01; }
+            update(){ this.x+=this.vx; this.y+=this.vy; this.life-=this.decay; return this.life>0 && this.x+40>0 && this.x-40<width && this.y<height+100; }
+            draw(ctx,now){ let alpha=this.life*0.8; ctx.beginPath(); ctx.moveTo(this.x,this.y); ctx.lineTo(this.x-this.vx*1.2,this.y-this.vy*1.2); ctx.lineWidth=1.8; ctx.strokeStyle=`rgba(255,235,200,${alpha*0.9})`; ctx.stroke(); ctx.beginPath(); ctx.arc(this.x,this.y,2.2,0,Math.PI*2); ctx.fillStyle=`rgba(255,210,150,${alpha})`; ctx.fill(); for(let i=1;i<=3;i++){ let bx=this.x-this.vx*(i*1.5), by=this.y-this.vy*(i*1.5); ctx.beginPath(); ctx.arc(bx,by,1.5-i*0.3,0,Math.PI*2); ctx.fillStyle=`rgba(255,200,140,${alpha*(0.5-i*0.1)})`; ctx.fill(); } }
         }
-        
-        // 生成更真实的星星 (星群聚散效果)
-        function generateStars() {
-            stars = [];
-            // 增加自然簇拥感：使用多次随机 + 轻微高斯集群
-            for (let i = 0; i < STAR_COUNT; i++) {
-                let x, y;
-                // 30% 的星星形成微星团 (模拟星云密集区)
-                if (Math.random() < 0.28) {
-                    // 随机选择几个中心团
-                    let clusterX = Math.random() * 0.8 + 0.1;
-                    let clusterY = Math.random() * 0.8 + 0.1;
-                    x = clusterX + (Math.random() - 0.5) * 0.08;
-                    y = clusterY + (Math.random() - 0.5) * 0.06;
-                    x = Math.min(0.98, Math.max(0.02, x));
-                    y = Math.min(0.98, Math.max(0.02, y));
-                } else {
-                    x = Math.random();
-                    y = Math.random();
-                }
-                // 半径范围 0.6 - 3.6 px 更真实分布
-                let radius = 0.7 + Math.pow(Math.random(), 1.5) * 3.0;
-                // 亮度与半径正相关
-                let baseBright = 0.3 + (radius / 4.0) * 0.7;
-                baseBright = Math.min(0.95, baseBright);
-                let twinkleSpeed = 0.002 + Math.random() * 0.012;
-                let colorType = Math.floor(Math.random() * starColors.length);
-                stars.push(new Star(x, y, radius, baseBright, twinkleSpeed, colorType));
+        function generateStars(){
+            stars=[];
+            for(let i=0;i<STAR_COUNT;i++){ let x,y; if(Math.random()<0.28){ let cx=Math.random()*0.8+0.1, cy=Math.random()*0.8+0.1; x=cx+(Math.random()-0.5)*0.08; y=cy+(Math.random()-0.5)*0.06; x=Math.min(0.98,Math.max(0.02,x)); y=Math.min(0.98,Math.max(0.02,y)); } else { x=Math.random(); y=Math.random(); }
+                let r=0.7+Math.pow(Math.random(),1.5)*3.0; let bright=0.3+(r/4.0)*0.7; bright=Math.min(0.95,bright); let speed=0.002+Math.random()*0.012; let ct=Math.floor(Math.random()*starColors.length);
+                stars.push(new Star(x,y,r,bright,speed,ct));
             }
-            // 额外添加一些极小的背景星，增加深度感（再加200颗小星星）
-            for (let i = 0; i < 300; i++) {
-                let x = Math.random();
-                let y = Math.random();
-                let radius = 0.4 + Math.random() * 0.6;
-                let baseBright = 0.2 + Math.random() * 0.4;
-                let twinkleSpeed = 0.001 + Math.random() * 0.008;
-                let colorType = Math.floor(Math.random() * starColors.length);
-                stars.push(new Star(x, y, radius, baseBright, twinkleSpeed, colorType));
-            }
+            for(let i=0;i<300;i++){ let x=Math.random(),y=Math.random(),r=0.4+Math.random()*0.6,b=0.2+Math.random()*0.4,s=0.001+Math.random()*0.008,ct=Math.floor(Math.random()*starColors.length); stars.push(new Star(x,y,r,b,s,ct)); }
         }
-        
-        // 流星生成器（约 35-70 秒随机产生一颗）
-        let lastMeteorTime = 0;
-        function tryAddMeteor(nowSec) {
-            if (meteors.length >= 2) return;
-            let interval = 38 + Math.random() * 45;
-            if (nowSec - lastMeteorTime > interval) {
-                meteors.push(new Meteor());
-                lastMeteorTime = nowSec;
-            }
-        }
-        
-        // 更新视差偏移 (平滑跟随)
-        let mouseMoveActive = false;
-        function initParallax() {
-            window.addEventListener('mousemove', (e) => {
-                mouseMoveActive = true;
-                // 归一化坐标 -1..1
-                let nx = (e.clientX / width) * 2 - 1;
-                let ny = (e.clientY / height) * 2 - 1;
-                targetOffsetX = nx * MAX_OFFSET;
-                targetOffsetY = ny * MAX_OFFSET;
+        let lastMeteor=0;
+        function tryAddMeteor(now){ if(meteors.length>=2) return; let interval=38+Math.random()*45; if(now-lastMeteor>interval){ meteors.push(new Meteor()); lastMeteor=now; } }
+        let mouseMove=false;
+        window.addEventListener('mousemove',(e)=>{ mouseMove=true; let nx=(e.clientX/width)*2-1, ny=(e.clientY/height)*2-1; targetOffsetX=nx*MAX_OFFSET; targetOffsetY=ny*MAX_OFFSET; });
+        setInterval(()=>{ if(!mouseMove){ targetOffsetX=0; targetOffsetY=0; } currentOffsetX+=(targetOffsetX-currentOffsetX)*0.08; currentOffsetY+=(targetOffsetY-currentOffsetY)*0.08; },30);
+        function drawStars(nowMs){ if(!ctx) return; let nowSec=nowMs/1000; ctx.clearRect(0,0,width,height); ctx.fillStyle='#000000'; ctx.fillRect(0,0,width,height); let offX=currentOffsetX, offY=currentOffsetY; for(let s of stars){ let dx=s.x*width+offX*(s.depthFactor*0.7), dy=s.y*height+offY*(s.depthFactor*0.7); if(dx<-20||dx>width+20||dy<-20||dy>height+20) continue; let alpha=s.getAlpha(nowSec); ctx.beginPath(); ctx.arc(dx,dy,s.radius,0,Math.PI*2); ctx.fillStyle=s.getColor(alpha); ctx.fill(); if(s.radius>1.8&&alpha>0.6){ ctx.beginPath(); ctx.arc(dx,dy,s.radius*1.5,0,Math.PI*2); ctx.fillStyle=`rgba(255,220,170,${alpha*0.2})`; ctx.fill(); } }
+            for(let i=0;i<meteors.length;i++){ if(meteors[i].update()) meteors[i].draw(ctx,nowSec); else meteors.splice(i--,1); } tryAddMeteor(nowSec); }
+        function resizeCanvas(){ width=window.innerWidth; height=window.innerHeight; canvas.width=width; canvas.height=height; }
+        function animate(t){ drawStars(t); requestAnimationFrame(animate); }
+        resizeCanvas(); generateStars(); window.addEventListener('resize',()=>{ resizeCanvas(); targetOffsetX=0; targetOffsetY=0; currentOffsetX=0; currentOffsetY=0; }); lastMeteor=performance.now()/1000-Math.random()*30; requestAnimationFrame(animate);
+
+        // ==================== 留言板 ====================
+        let comments = JSON.parse(localStorage.getItem('starComments') || '[]');
+        function renderComments() {
+            const container = document.getElementById('commentList');
+            if(!container) return;
+            if(comments.length===0){ container.innerHTML='<div style="text-align:center; color:#7f86b0; padding:1rem;">✨ 暂无留言，做第一个星际旅人吧 ✨</div>'; return; }
+            container.innerHTML = comments.map((c,idx)=>`
+                <div class="comment-item">
+                    <div><span class="comment-name">${escapeHtml(c.name)}</span><span class="comment-time">${c.time}</span>
+                    <button class="delete-comment" data-idx="${idx}">✖</button></div>
+                    <div class="comment-text">${escapeHtml(c.text)}</div>
+                </div>
+            `).join('');
+            document.querySelectorAll('.delete-comment').forEach(btn=>{
+                btn.addEventListener('click',(e)=>{
+                    let idx=parseInt(btn.dataset.idx);
+                    comments.splice(idx,1);
+                    localStorage.setItem('starComments',JSON.stringify(comments));
+                    renderComments();
+                });
             });
-            // 如果没有鼠标移动，偏移归零
-            setInterval(() => {
-                if (!mouseMoveActive) {
-                    targetOffsetX = 0;
-                    targetOffsetY = 0;
-                }
-                // 平滑插值
-                currentOffsetX += (targetOffsetX - currentOffsetX) * 0.08;
-                currentOffsetY += (targetOffsetY - currentOffsetY) * 0.08;
-            }, 30);
         }
-        
-        // 渲染星空+流星+视差
-        let lastTimestamp = 0;
-        function drawStars(nowMs) {
-            if (!ctx) return;
-            let nowSec = nowMs / 1000;
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(0, 0, width, height);
-            
-            // 应用视差偏移 (星星位置偏移)
-            let offX = currentOffsetX;
-            let offY = currentOffsetY;
-            
-            // 绘制所有星星 (带深度分层偏移微调)
-            for (let s of stars) {
-                let drawX = s.x * width + offX * (s.depthFactor * 0.7);
-                let drawY = s.y * height + offY * (s.depthFactor * 0.7);
-                if (drawX < -20 || drawX > width + 20 || drawY < -20 || drawY > height + 20) continue;
-                let alpha = s.getAlpha(nowSec);
-                let color = s.getColor(alpha);
-                ctx.beginPath();
-                ctx.arc(drawX, drawY, s.radius, 0, Math.PI * 2);
-                ctx.fillStyle = color;
-                ctx.fill();
-                // 极微小光晕（高级感）
-                if (s.radius > 1.8 && alpha > 0.6) {
-                    ctx.beginPath();
-                    ctx.arc(drawX, drawY, s.radius * 1.5, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 220, 170, ${alpha * 0.2})`;
-                    ctx.fill();
-                }
-            }
-            
-            // 绘制流星（独立不受视差影响）
-            for (let i = 0; i < meteors.length; i++) {
-                let m = meteors[i];
-                let alive = m.update();
-                if (alive) {
-                    m.draw(ctx, nowSec);
-                } else {
-                    meteors.splice(i,1);
-                    i--;
-                }
-            }
-            tryAddMeteor(nowSec);
-        }
-        
-        function resizeCanvas() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-        
-        function animate(time) {
-            drawStars(time);
-            requestAnimationFrame(animate);
-        }
-        
-        function init() {
-            resizeCanvas();
-            generateStars();
-            initParallax();
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-                // 重置视差目标偏移避免突兀
-                targetOffsetX = 0; targetOffsetY = 0;
-                currentOffsetX = 0; currentOffsetY = 0;
+        function escapeHtml(str){ return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
+        document.getElementById('submitComment')?.addEventListener('click',()=>{
+            let name=document.getElementById('commentName').value.trim();
+            let text=document.getElementById('commentText').value.trim();
+            if(!name) name='星际旅人';
+            if(!text) return;
+            let time=new Date().toLocaleString();
+            comments.unshift({name,text,time});
+            localStorage.setItem('starComments',JSON.stringify(comments));
+            renderComments();
+            document.getElementById('commentName').value='';
+            document.getElementById('commentText').value='';
+        });
+        renderComments();
+
+        // ==================== 文件上传 ====================
+        const fileInput=document.getElementById('fileInput');
+        const uploadBtn=document.getElementById('uploadBtn');
+        const fileListDiv=document.getElementById('fileList');
+        const previewDiv=document.getElementById('filePreview');
+        let uploadedFiles=JSON.parse(localStorage.getItem('starFiles')||'[]');
+        function renderFileList(){
+            if(!fileListDiv) return;
+            if(uploadedFiles.length===0){ fileListDiv.innerHTML='<div style="opacity:0.6;">暂无上传文件，点击上传星尘档案</div>'; previewDiv.innerHTML=''; return; }
+            fileListDiv.innerHTML=uploadedFiles.map((f,idx)=>`<div class="file-item"><span>📄 ${f.name} (${(f.size/1024).toFixed(1)}KB)</span><button class="delete-comment" data-fileidx="${idx}" style="background:none; border:none;">✖</button></div>`).join('');
+            let firstImg = uploadedFiles.find(f=>f.type.startsWith('image/'));
+            if(firstImg){ previewDiv.innerHTML=`<img src="${firstImg.data}" class="preview-img" alt="预览">`; } else { previewDiv.innerHTML=''; }
+            document.querySelectorAll('[data-fileidx]').forEach(btn=>{
+                btn.addEventListener('click',(e)=>{
+                    let idx=parseInt(btn.dataset.fileidx);
+                    uploadedFiles.splice(idx,1);
+                    localStorage.setItem('starFiles',JSON.stringify(uploadedFiles));
+                    renderFileList();
+                });
             });
-            // 随机初始化流星时间偏移
-            lastMeteorTime = performance.now() / 1000 - Math.random() * 30;
-            requestAnimationFrame(animate);
         }
-        
-        init();
-        
-        // 文章链接占位演示（保留简洁提示）
-        const readLinks = document.querySelectorAll('.read-link, .post-title a');
-        for (let link of readLinks) {
-            link.addEventListener('click', (e) => {
-                if (link.getAttribute('href') === '#') {
+        uploadBtn?.addEventListener('click',()=>fileInput.click());
+        fileInput?.addEventListener('change',(e)=>{
+            const files=Array.from(e.target.files);
+            files.forEach(file=>{
+                if(file.size>2*1024*1024){ alert('文件超过2MB，请压缩后上传'); return; }
+                let reader=new FileReader();
+                reader.onload=function(ev){
+                    let fileObj={ name:file.name, size:file.size, type:file.type, data:ev.target.result };
+                    uploadedFiles.push(fileObj);
+                    localStorage.setItem('starFiles',JSON.stringify(uploadedFiles));
+                    renderFileList();
+                };
+                reader.readAsDataURL(file);
+            });
+            fileInput.value='';
+        });
+        renderFileList();
+
+        // ==================== 在线编辑 ====================
+        const editorDiv=document.getElementById('editableContent');
+        const saveNoteBtn=document.getElementById('saveNoteBtn');
+        const clearNoteBtn=document.getElementById('clearNoteBtn');
+        const savedInfo=document.getElementById('savedNoteInfo');
+        let savedNote=localStorage.getItem('starNote')||'';
+        if(savedNote){ editorDiv.innerHTML=savedNote; savedInfo.innerHTML='📝 上次保存: '+new Date(localStorage.getItem('starNoteTime')||'').toLocaleString(); }
+        else editorDiv.innerHTML='写下你的深空灵感...';
+        saveNoteBtn?.addEventListener('click',()=>{
+            let html=editorDiv.innerHTML;
+            localStorage.setItem('starNote',html);
+            localStorage.setItem('starNoteTime',new Date().toISOString());
+            savedInfo.innerHTML='✅ 已保存笔记 '+new Date().toLocaleString();
+        });
+        clearNoteBtn?.addEventListener('click',()=>{ editorDiv.innerHTML=''; localStorage.removeItem('starNote'); localStorage.removeItem('starNoteTime'); savedInfo.innerHTML='笔记已清空'; });
+        document.getElementById('boldBtn')?.addEventListener('click',()=>{ document.execCommand('bold',false,null); });
+        document.getElementById('italicBtn')?.addEventListener('click',()=>{ document.execCommand('italic',false,null); });
+
+        // ==================== 选项卡切换 ====================
+        const tabs=document.querySelectorAll('.tab-btn');
+        const panes={ comments:document.getElementById('comments-pane'), upload:document.getElementById('upload-pane'), editor:document.getElementById('editor-pane') };
+        tabs.forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                let tab=btn.dataset.tab;
+                tabs.forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                Object.values(panes).forEach(p=>p.classList.remove('active-pane'));
+                if(tab==='comments') panes.comments.classList.add('active-pane');
+                if(tab==='upload') panes.upload.classList.add('active-pane');
+                if(tab==='editor') panes.editor.classList.add('active-pane');
+            });
+        });
+
+        // 文章占位提示
+        document.querySelectorAll('.read-link, .post-title a, .decor-nav a').forEach(link=>{
+            link.addEventListener('click',(e)=>{
+                if(link.getAttribute('href')==='#'){
                     e.preventDefault();
-                    const toast = document.createElement('div');
-                    toast.textContent = '✦ 完整星文即将抵达，敬请期待 ✦';
-                    toast.style.position = 'fixed';
-                    toast.style.bottom = '24px';
-                    toast.style.left = '50%';
-                    toast.style.transform = 'translateX(-50%)';
-                    toast.style.backgroundColor = 'rgba(0,0,0,0.75)';
-                    toast.style.backdropFilter = 'blur(12px)';
-                    toast.style.color = '#d9d4ff';
-                    toast.style.padding = '8px 20px';
-                    toast.style.borderRadius = '60px';
-                    toast.style.fontSize = '0.75rem';
-                    toast.style.border = '0.5px solid rgba(108,92,231,0.5)';
-                    toast.style.zIndex = '1000';
-                    toast.style.fontFamily = 'Inter, sans-serif';
+                    let toast=document.createElement('div');
+                    toast.textContent='✦ 完整星文即将抵达，敬请期待 ✦';
+                    toast.style.cssText='position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.75); backdrop-filter:blur(12px); color:#d9d4ff; padding:8px 20px; border-radius:60px; font-size:0.75rem; border:0.5px solid rgba(108,92,231,0.5); z-index:1000;';
                     document.body.appendChild(toast);
-                    setTimeout(() => toast.remove(), 1800);
-                }
-            });
-        }
-        
-        const navLinks = document.querySelectorAll('.nav-links a:not([href*="github"])');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (link.getAttribute('href') === '#') {
-                    e.preventDefault();
-                    const msg = document.createElement('div');
-                    msg.textContent = '⌾ 星轨延伸中，欢迎先阅览文章 ⌾';
-                    msg.style.cssText = 'position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); backdrop-filter:blur(12px); color:#e0dbff; padding:6px 18px; border-radius:40px; font-size:0.7rem; z-index:1000; border-left:2px solid #6c5ce7;';
-                    document.body.appendChild(msg);
-                    setTimeout(() => msg.remove(), 1600);
+                    setTimeout(()=>toast.remove(),1800);
                 }
             });
         });
