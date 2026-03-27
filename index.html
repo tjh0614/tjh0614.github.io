@@ -2,72 +2,747 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>豪豪 | 个人主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="豪豪的个人博客 - 探索技术与创意的边界">
+    <meta name="keywords" content="豪豪,个人博客,开发者,编程,设计,AI">
+    <meta name="author" content="豪豪">
+    <title>豪豪 · 星际笔记</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
-        :root{--primary:#6c5ce7;--secondary:#a29bfe;--accent:#fd79a8;--dark:#0f0f23;--glass:rgba(255,255,255,0.08)}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Outfit',sans-serif;min-height:100vh;background:var(--dark);display:flex;justify-content:center;align-items:center;padding:20px;position:relative;overflow-x:hidden}
-        .bg{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.4;animation:float 15s infinite;z-index:0}
-        .bg1{width:500px;height:500px;background:var(--primary);top:-150px;left:-150px}
-        .bg2{width:400px;height:400px;background:var(--secondary);bottom:-100px;right:-100px;animation-delay:-5s}
-        .bg3{width:300px;height:300px;background:var(--accent);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-10s}
-        @keyframes float{0%,100%{transform:translate(0)scale(1)}25%{transform:translate(30px,-30px)scale(1.1)}50%{transform:translate(-20px,20px)scale(0.95)}75%{transform:translate(20px,30px)scale(1.05)}}
-        .container{position:relative;z-index:1;background:var(--glass);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);border-radius:32px;max-width:480px;width:100%;padding:50px 40px;animation:slideUp 0.8s ease;box-shadow:0 25px 50px rgba(0,0,0,0.5)}
-        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-        .avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));padding:4px;margin:0 auto 25px;animation:pulse 3s infinite}
-        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(108,92,231,0.4)}50%{box-shadow:0 0 0 20px rgba(108,92,231,0)}}
-        .avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:56px}
-        .name{font-size:32px;font-weight:700;color:#fff;text-align:center;margin-bottom:8px;background:linear-gradient(135deg,#fff,#a29bfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .tagline{color:rgba(255,255,255,0.5);font-size:13px;text-align:center;letter-spacing:3px;text-transform:uppercase}
-        .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);margin:35px 0}
-        .section{margin-bottom:30px}
-        .section-title{font-size:11px;color:var(--secondary);letter-spacing:3px;text-transform:uppercase;margin-bottom:15px;font-weight:600}
-        .bio{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.8}
-        .skills{display:flex;flex-wrap:wrap;gap:10px}
-        .skill{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:10px 18px;border-radius:50px;color:#fff;font-size:14px;transition:all 0.3s}
-        .skill:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;transform:translateY(-3px)}
-        .links{display:flex;flex-direction:column;gap:12px}
-        .link{display:flex;align-items:center;gap:15px;padding:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;text-decoration:none;color:#fff;transition:all 0.3s}
-        .link:hover{background:rgba(255,255,255,0.1);transform:translateX(8px)}
-        .link-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:20px}
-        .link-title{font-weight:500;margin-bottom:2px}
-        .link-desc{font-size:12px;color:rgba(255,255,255,0.5)}
-        .footer{text-align:center;margin-top:30px;color:rgba(255,255,255,0.3);font-size:13px}
-        .footer span{color:var(--accent)}
-        @media(max-width:480px){.container{padding:35px 24px}.name{font-size:26px}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            position: relative;
+            line-height: 1.5;
+            color: #eef2ff;
+            overflow-x: hidden;
+        }
+
+        /* 星空画布 */
+        #starCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+            background: #000000;
+        }
+
+        /* 主容器 */
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 极简导航 */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 0.25rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(125deg, #ffffff, #a09eff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #b9c2e6;
+            font-weight: 450;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* 双栏布局 更简洁 */
+        .grid-main {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+        }
+
+        /* 左侧卡片 - 极致黑灰玻璃 */
+        .profile-card {
+            background: rgba(8, 8, 12, 0.65);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1.8rem 1.5rem;
+            border: 0.5px solid rgba(255, 255, 255, 0.06);
+            transition: border-color 0.3s;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.2rem;
+            background: linear-gradient(135deg, #4a3b8f, #2a1e55);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-align: center;
+            color: #ffffff;
+            letter-spacing: -0.2px;
+            margin-bottom: 0.2rem;
+        }
+
+        .badge {
+            text-align: center;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8f8bbe;
+            margin-bottom: 1.5rem;
+        }
+
+        .bio {
+            font-size: 0.85rem;
+            color: #cdd4f0;
+            line-height: 1.6;
+            margin: 1rem 0;
+            border-left: 1px solid rgba(108, 92, 231, 0.4);
+            padding-left: 1rem;
+        }
+
+        .skill-set {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0 1.8rem;
+        }
+
+        .skill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 0.5px solid rgba(255,255,255,0.1);
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #cfd9ff;
+            transition: all 0.2s;
+        }
+
+        .skill:hover {
+            background: rgba(108, 92, 231, 0.3);
+            border-color: rgba(108, 92, 231, 0.5);
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 1rem;
+            text-decoration: none;
+            color: #e2e6ff;
+            transition: all 0.2s;
+            border: 0.5px solid rgba(255,255,255,0.03);
+        }
+
+        .contact-link:hover {
+            background: rgba(108, 92, 231, 0.15);
+            transform: translateX(3px);
+            border-color: rgba(108, 92, 231, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+            width: 28px;
+        }
+
+        .contact-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .contact-sub {
+            font-size: 0.65rem;
+            color: #8f99cf;
+        }
+
+        /* 右侧文章区域 - 极简高级 */
+        .articles-area {
+            background: rgba(6, 6, 10, 0.45);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            border: 0.5px solid rgba(255,255,255,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2rem;
+            border-bottom: 0.5px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.8rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+            color: #f0f2ff;
+        }
+
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .post-item {
+            padding-bottom: 1.2rem;
+            border-bottom: 0.5px solid rgba(255,255,255,0.05);
+            transition: all 0.2s;
+        }
+
+        .post-item:last-child {
+            border-bottom: none;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.7rem;
+            color: #949bcb;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0.3rem 0 0.6rem;
+            line-height: 1.35;
+        }
+
+        .post-title a {
+            text-decoration: none;
+            color: #ffffff;
+            transition: color 0.2s;
+        }
+
+        .post-title a:hover {
+            color: #b9adff;
+        }
+
+        .post-excerpt {
+            color: #bac2e3;
+            font-size: 0.85rem;
+            line-height: 1.55;
+            margin-bottom: 0.8rem;
+        }
+
+        .read-link {
+            font-size: 0.75rem;
+            color: #9b93e0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s;
+        }
+
+        .read-link:hover {
+            gap: 8px;
+            color: #cec5ff;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5f689b;
+            border-top: 0.5px solid rgba(255,255,255,0.05);
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 780px) {
+            .grid-main {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            body {
+                padding: 1.2rem;
+            }
+            .profile-card {
+                text-align: center;
+            }
+            .contact-link {
+                justify-content: center;
+            }
+            .bio {
+                text-align: left;
+            }
+        }
+
+        /* 极简滚动条 */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a3470;
+            border-radius: 4px;
+        }
+
+        ::selection {
+            background: rgba(108, 92, 231, 0.4);
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <div class="bg bg1"></div><div class="bg bg2"></div><div class="bg bg3"></div>
-    <div class="container">
-        <div class="avatar"><div class="avatar-inner">👋</div></div>
-        <h1 class="name">豪豪</h1>
-        <p class="tagline">Welcome to my world</p>
-        <div class="divider"></div>
-        <div class="section">
-            <div class="section-title">关于</div>
-            <p class="bio">你好！我是豪豪，一个热爱技术和探索的人。喜欢折腾新东西，享受解决问题的乐趣。🌟</p>
+
+<canvas id="starCanvas"></canvas>
+
+<div class="blog-container">
+    <nav class="nav">
+        <div class="logo">✦ 豪豪 · 深空笔记</div>
+        <div class="nav-links">
+            <a href="#">首页</a>
+            <a href="#">归档</a>
+            <a href="https://github.com/tjh0614" target="_blank" rel="noopener">GitHub</a>
         </div>
-        <div class="section">
-            <div class="section-title">技能</div>
-            <div class="skills">
-                <span class="skill">💻 编程</span>
-                <span class="skill">🎨 设计</span>
-                <span class="skill">📱 开发</span>
-                <span class="skill">🤖 AI</span>
+    </nav>
+
+    <div class="grid-main">
+        <!-- 左侧 简洁个人卡 -->
+        <aside class="profile-card">
+            <div class="avatar">🌌</div>
+            <div class="name">豪豪</div>
+            <div class="badge">深空开发者 / 叙事者</div>
+            <div class="bio">
+                在代码与星光之间构建世界。关注 AI、交互美学与独立创作。相信极简才是终极复杂。
             </div>
-        </div>
-        <div class="section">
-            <div class="section-title">连接</div>
-            <div class="links">
-                <a href="mailto:your@email.com" class="link"><div class="link-icon">📧</div><div><div class="link-title">发送邮件</div><div class="link-desc">来封邮件吧</div></div></a>
-                <a href="https://github.com/tjh0614" class="link" target="_blank"><div class="link-icon">🐙</div><div><div class="link-title">GitHub</div><div class="link-desc">看看我的项目</div></div></a>
+            <div class="skill-set">
+                <span class="skill">React</span>
+                <span class="skill">Python</span>
+                <span class="skill">SwiftUI</span>
+                <span class="skill">AI Agent</span>
+                <span class="skill">Figma</span>
             </div>
-        </div>
-        <div class="footer">Made with <span>♥</span> by 豪豪</div>
+            <div class="contact-links">
+                <a href="mailto:hao@deepspace.me" class="contact-link">
+                    <span class="contact-icon">✧</span>
+                    <div>
+                        <div class="contact-text">hao@deepspace.me</div>
+                        <div class="contact-sub">星际邮箱</div>
+                    </div>
+                </a>
+                <a href="https://github.com/tjh0614" class="contact-link" target="_blank" rel="noopener">
+                    <span class="contact-icon">⌨️</span>
+                    <div>
+                        <div class="contact-text">GitHub</div>
+                        <div class="contact-sub">开源星轨</div>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <!-- 右侧 文章列表 简洁高级 -->
+        <main class="articles-area">
+            <div class="section-header">
+                <h2>／最近星尘</h2>
+                <span style="font-size: 0.7rem; color:#6f78b0;">✦ 4 篇新想</span>
+            </div>
+            <div class="post-list">
+                <article class="post-item">
+                    <div class="post-meta">
+                        <span>03.18.2025</span>
+                        <span>◈ 6 min read</span>
+                    </div>
+                    <h3 class="post-title"><a href="#">AI 协作 · 重构创造力边界</a></h3>
+                    <p class="post-excerpt">
+                        当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。
+                    </p>
+                    <a href="#" class="read-link">探索 →</a>
+                </article>
+
+                <article class="post-item">
+                    <div class="post-meta">
+                        <span>03.08.2025</span>
+                        <span>◈ 4 min read</span>
+                    </div>
+                    <h3 class="post-title"><a href="#">暗色模式设计：超越美学的体验构建</a></h3>
+                    <p class="post-excerpt">
+                        从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。
+                    </p>
+                    <a href="#" class="read-link">探索 →</a>
+                </article>
+
+                <article class="post-item">
+                    <div class="post-meta">
+                        <span>02.24.2025</span>
+                        <span>◈ 9 min read</span>
+                    </div>
+                    <h3 class="post-title"><a href="#">独立开发 2.0：工具链与认知盈余</a></h3>
+                    <p class="post-excerpt">
+                        从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。
+                    </p>
+                    <a href="#" class="read-link">探索 →</a>
+                </article>
+
+                <article class="post-item">
+                    <div class="post-meta">
+                        <span>02.10.2025</span>
+                        <span>◈ 5 min read</span>
+                    </div>
+                    <h3 class="post-title"><a href="#">星辰语法：生成式艺术与代码</a></h3>
+                    <p class="post-excerpt">
+                        用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。
+                    </p>
+                    <a href="#" class="read-link">探索 →</a>
+                </article>
+            </div>
+            <div class="footer-note">
+                ✦ 保持好奇，像星星一样燃烧 ✦
+            </div>
+        </main>
     </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- 更真实星光背景 + 视差 + 极简流星 ----------
+        const canvas = document.getElementById('starCanvas');
+        let ctx = canvas.getContext('2d');
+        let stars = [];
+        let meteors = [];
+        let width, height;
+        
+        // 鼠标位置归一化偏移 (-1..1)
+        let mouseX = 0, mouseY = 0;
+        let targetOffsetX = 0, targetOffsetY = 0;
+        let currentOffsetX = 0, currentOffsetY = 0;
+        
+        // 配置
+        const STAR_COUNT = 800;      // 星星数量更多，更真实
+        const MAX_OFFSET = 18;       // 最大偏移像素
+        
+        // 颜色调色板 (暖白，淡蓝，微橙)
+        const starColors = [
+            'rgba(255, 245, 225, {alpha})',
+            'rgba(235, 240, 255, {alpha})',
+            'rgba(255, 235, 210, {alpha})',
+            'rgba(210, 225, 255, {alpha})'
+        ];
+        
+        // 星星数据结构
+        class Star {
+            constructor(x, y, radius, baseBrightness, twinkleSpeed, colorType, clusterShiftX = 0, clusterShiftY = 0) {
+                this.x = x;          // 归一化 0..1
+                this.y = y;
+                this.radius = radius;
+                this.baseBrightness = baseBrightness;  // 基础亮度 0.2-1
+                this.twinkleSpeed = twinkleSpeed;
+                this.phase = Math.random() * Math.PI * 2;
+                this.colorType = colorType;
+                // 轻微偏移模拟视差深度 (小星星偏移少)
+                this.depthFactor = Math.min(1.0, radius / 2.8); // 越大星星越近，视差移动更大
+            }
+            
+            getAlpha(now) {
+                let twinkle = 0.6 + 0.4 * Math.sin(now * this.twinkleSpeed + this.phase);
+                let alpha = this.baseBrightness * twinkle;
+                return Math.min(0.95, Math.max(0.15, alpha));
+            }
+            
+            getColor(alpha) {
+                let template = starColors[this.colorType % starColors.length];
+                return template.replace('{alpha}', alpha);
+            }
+        }
+        
+        // 流星对象
+        class Meteor {
+            constructor() {
+                // 随机起始点（屏幕外边缘区域）
+                this.x = Math.random() * width;
+                this.y = Math.random() * height * 0.6; // 起始偏上区域
+                this.vx = (Math.random() * 6 + 3) * (Math.random() > 0.5 ? 1 : -1);
+                this.vy = (Math.random() * 5 + 2);
+                // 确保方向大体向左下或右下自然
+                if (Math.abs(this.vx) < 2) this.vx = this.vx > 0 ? 3 : -3;
+                this.length = Math.random() * 40 + 25;
+                this.opacity = 0.9;
+                this.life = 1.0;     // 生命周期
+                this.decay = 0.008 + Math.random() * 0.01;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                return this.life > 0 && this.x + this.length > 0 && this.x - this.length < width && this.y < height + 100;
+            }
+            
+            draw(ctx, now) {
+                let alpha = this.life * 0.8;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x - this.vx * 1.2, this.y - this.vy * 1.2);
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = `rgba(255, 235, 200, ${alpha * 0.9})`;
+                ctx.stroke();
+                // 头部光晕
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2.2, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(255, 210, 150, ${alpha})`;
+                ctx.fill();
+                // 拖尾渐变
+                for(let i=1;i<=3;i++) {
+                    ctx.beginPath();
+                    let backX = this.x - this.vx * (i*1.5);
+                    let backY = this.y - this.vy * (i*1.5);
+                    ctx.arc(backX, backY, 1.5 - i*0.3, 0, Math.PI*2);
+                    ctx.fillStyle = `rgba(255, 200, 140, ${alpha * (0.5 - i*0.1)})`;
+                    ctx.fill();
+                }
+            }
+        }
+        
+        // 生成更真实的星星 (星群聚散效果)
+        function generateStars() {
+            stars = [];
+            // 增加自然簇拥感：使用多次随机 + 轻微高斯集群
+            for (let i = 0; i < STAR_COUNT; i++) {
+                let x, y;
+                // 30% 的星星形成微星团 (模拟星云密集区)
+                if (Math.random() < 0.28) {
+                    // 随机选择几个中心团
+                    let clusterX = Math.random() * 0.8 + 0.1;
+                    let clusterY = Math.random() * 0.8 + 0.1;
+                    x = clusterX + (Math.random() - 0.5) * 0.08;
+                    y = clusterY + (Math.random() - 0.5) * 0.06;
+                    x = Math.min(0.98, Math.max(0.02, x));
+                    y = Math.min(0.98, Math.max(0.02, y));
+                } else {
+                    x = Math.random();
+                    y = Math.random();
+                }
+                // 半径范围 0.6 - 3.6 px 更真实分布
+                let radius = 0.7 + Math.pow(Math.random(), 1.5) * 3.0;
+                // 亮度与半径正相关
+                let baseBright = 0.3 + (radius / 4.0) * 0.7;
+                baseBright = Math.min(0.95, baseBright);
+                let twinkleSpeed = 0.002 + Math.random() * 0.012;
+                let colorType = Math.floor(Math.random() * starColors.length);
+                stars.push(new Star(x, y, radius, baseBright, twinkleSpeed, colorType));
+            }
+            // 额外添加一些极小的背景星，增加深度感（再加200颗小星星）
+            for (let i = 0; i < 300; i++) {
+                let x = Math.random();
+                let y = Math.random();
+                let radius = 0.4 + Math.random() * 0.6;
+                let baseBright = 0.2 + Math.random() * 0.4;
+                let twinkleSpeed = 0.001 + Math.random() * 0.008;
+                let colorType = Math.floor(Math.random() * starColors.length);
+                stars.push(new Star(x, y, radius, baseBright, twinkleSpeed, colorType));
+            }
+        }
+        
+        // 流星生成器（约 35-70 秒随机产生一颗）
+        let lastMeteorTime = 0;
+        function tryAddMeteor(nowSec) {
+            if (meteors.length >= 2) return;
+            let interval = 38 + Math.random() * 45;
+            if (nowSec - lastMeteorTime > interval) {
+                meteors.push(new Meteor());
+                lastMeteorTime = nowSec;
+            }
+        }
+        
+        // 更新视差偏移 (平滑跟随)
+        let mouseMoveActive = false;
+        function initParallax() {
+            window.addEventListener('mousemove', (e) => {
+                mouseMoveActive = true;
+                // 归一化坐标 -1..1
+                let nx = (e.clientX / width) * 2 - 1;
+                let ny = (e.clientY / height) * 2 - 1;
+                targetOffsetX = nx * MAX_OFFSET;
+                targetOffsetY = ny * MAX_OFFSET;
+            });
+            // 如果没有鼠标移动，偏移归零
+            setInterval(() => {
+                if (!mouseMoveActive) {
+                    targetOffsetX = 0;
+                    targetOffsetY = 0;
+                }
+                // 平滑插值
+                currentOffsetX += (targetOffsetX - currentOffsetX) * 0.08;
+                currentOffsetY += (targetOffsetY - currentOffsetY) * 0.08;
+            }, 30);
+        }
+        
+        // 渲染星空+流星+视差
+        let lastTimestamp = 0;
+        function drawStars(nowMs) {
+            if (!ctx) return;
+            let nowSec = nowMs / 1000;
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, width, height);
+            
+            // 应用视差偏移 (星星位置偏移)
+            let offX = currentOffsetX;
+            let offY = currentOffsetY;
+            
+            // 绘制所有星星 (带深度分层偏移微调)
+            for (let s of stars) {
+                let drawX = s.x * width + offX * (s.depthFactor * 0.7);
+                let drawY = s.y * height + offY * (s.depthFactor * 0.7);
+                if (drawX < -20 || drawX > width + 20 || drawY < -20 || drawY > height + 20) continue;
+                let alpha = s.getAlpha(nowSec);
+                let color = s.getColor(alpha);
+                ctx.beginPath();
+                ctx.arc(drawX, drawY, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                // 极微小光晕（高级感）
+                if (s.radius > 1.8 && alpha > 0.6) {
+                    ctx.beginPath();
+                    ctx.arc(drawX, drawY, s.radius * 1.5, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 220, 170, ${alpha * 0.2})`;
+                    ctx.fill();
+                }
+            }
+            
+            // 绘制流星（独立不受视差影响）
+            for (let i = 0; i < meteors.length; i++) {
+                let m = meteors[i];
+                let alive = m.update();
+                if (alive) {
+                    m.draw(ctx, nowSec);
+                } else {
+                    meteors.splice(i,1);
+                    i--;
+                }
+            }
+            tryAddMeteor(nowSec);
+        }
+        
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        
+        function animate(time) {
+            drawStars(time);
+            requestAnimationFrame(animate);
+        }
+        
+        function init() {
+            resizeCanvas();
+            generateStars();
+            initParallax();
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                // 重置视差目标偏移避免突兀
+                targetOffsetX = 0; targetOffsetY = 0;
+                currentOffsetX = 0; currentOffsetY = 0;
+            });
+            // 随机初始化流星时间偏移
+            lastMeteorTime = performance.now() / 1000 - Math.random() * 30;
+            requestAnimationFrame(animate);
+        }
+        
+        init();
+        
+        // 文章链接占位演示（保留简洁提示）
+        const readLinks = document.querySelectorAll('.read-link, .post-title a');
+        for (let link of readLinks) {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    const toast = document.createElement('div');
+                    toast.textContent = '✦ 完整星文即将抵达，敬请期待 ✦';
+                    toast.style.position = 'fixed';
+                    toast.style.bottom = '24px';
+                    toast.style.left = '50%';
+                    toast.style.transform = 'translateX(-50%)';
+                    toast.style.backgroundColor = 'rgba(0,0,0,0.75)';
+                    toast.style.backdropFilter = 'blur(12px)';
+                    toast.style.color = '#d9d4ff';
+                    toast.style.padding = '8px 20px';
+                    toast.style.borderRadius = '60px';
+                    toast.style.fontSize = '0.75rem';
+                    toast.style.border = '0.5px solid rgba(108,92,231,0.5)';
+                    toast.style.zIndex = '1000';
+                    toast.style.fontFamily = 'Inter, sans-serif';
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 1800);
+                }
+            });
+        }
+        
+        const navLinks = document.querySelectorAll('.nav-links a:not([href*="github"])');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    const msg = document.createElement('div');
+                    msg.textContent = '⌾ 星轨延伸中，欢迎先阅览文章 ⌾';
+                    msg.style.cssText = 'position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); backdrop-filter:blur(12px); color:#e0dbff; padding:6px 18px; border-radius:40px; font-size:0.7rem; z-index:1000; border-left:2px solid #6c5ce7;';
+                    document.body.appendChild(msg);
+                    setTimeout(() => msg.remove(), 1600);
+                }
+            });
+        });
+    })();
+</script>
 </body>
 </html>
