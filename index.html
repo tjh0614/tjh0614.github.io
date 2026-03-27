@@ -218,6 +218,40 @@
             border: 0.5px solid rgba(255,255,255,0.05);
         }
 
+        /* 右侧装饰导航栏 */
+        .decor-nav {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 0.5px solid rgba(255,255,255,0.1);
+        }
+        .decor-nav a {
+            text-decoration: none;
+            color: #a5aedb;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .decor-nav a:hover {
+            color: #ffffff;
+        }
+        .decor-nav a.active {
+            color: #c0b7ff;
+        }
+        .decor-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 1.5px;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            border-radius: 2px;
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -323,6 +357,10 @@
             .bio {
                 text-align: left;
             }
+            .decor-nav {
+                justify-content: center;
+                gap: 1.2rem;
+            }
         }
 
         /* 极简滚动条 */
@@ -349,7 +387,7 @@
 
 <div class="blog-container">
     <nav class="nav">
-        <div class="logo">✦ 豪 · 深空笔记</div>
+        <div class="logo">豪✦深空笔记</div>
         <div class="nav-links">
             <a href="#">首页</a>
             <a href="#">归档</a>
@@ -358,7 +396,7 @@
     </nav>
 
     <div class="grid-main">
-        <!-- 左侧 简洁个人卡 -->
+        <!-- 左侧 个人资料卡（已是最左侧） -->
         <aside class="profile-card">
             <div class="avatar">🌌</div>
             <div class="name">豪</div>
@@ -374,10 +412,10 @@
                 <span class="skill">Figma</span>
             </div>
             <div class="contact-links">
-                <a href="mailto:hao@deepspace.me" class="contact-link">
+                <a href="mailto:916302299@qq.com" class="contact-link">
                     <span class="contact-icon">✧</span>
                     <div>
-                        <div class="contact-text">hao@deepspace.me</div>
+                        <div class="contact-text">916302299@qq.com</div>
                         <div class="contact-sub">星际邮箱</div>
                     </div>
                 </a>
@@ -391,8 +429,15 @@
             </div>
         </aside>
 
-        <!-- 右侧 文章列表 简洁高级 -->
+        <!-- 右侧 文章区域 + 装饰导航栏 -->
         <main class="articles-area">
+            <!-- 装饰导航栏：右侧内容上方 -->
+            <div class="decor-nav">
+                <a href="#" class="active">星尘笔记</a>
+                <a href="#">灵感清单</a>
+                <a href="#">深空手记</a>
+            </div>
+
             <div class="section-header">
                 <h2>／最近星尘</h2>
                 <span style="font-size: 0.7rem; color:#6f78b0;">✦ 4 篇新想</span>
