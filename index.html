@@ -3,55 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>豪豪的个人主页</title>
+    <title>豪豪 | 个人主页</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .container { background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%; overflow: hidden; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center; color: white; }
-        .avatar { width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 15px; background: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 48px; }
-        .name { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-        .title { font-size: 16px; opacity: 0.9; }
-        .content { padding: 30px; }
-        .section { margin-bottom: 25px; }
-        .section-title { font-size: 18px; font-weight: 600; color: #667eea; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .section-title::before { content: "▸"; color: #764ba2; }
-        .intro { color: #666; line-height: 1.8; }
-        .skills { display: flex; flex-wrap: wrap; gap: 10px; }
-        .skill-tag { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 6px 16px; border-radius: 20px; font-size: 14px; }
-        .links { display: flex; flex-direction: column; gap: 12px; }
-        .link-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #f8f9fa; border-radius: 10px; text-decoration: none; color: #333; transition: all 0.3s ease; }
-        .link-item:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; transform: translateX(5px); }
-        .link-icon { font-size: 20px; }
-        .footer { background: #f8f9fa; padding: 20px; text-align: center; color: #999; font-size: 14px; }
-        .footer a { color: #667eea; text-decoration: none; }
-        @media (max-width: 480px) { .name { font-size: 24px; } .content { padding: 20px; } }
+        :root{--primary:#6c5ce7;--secondary:#a29bfe;--accent:#fd79a8;--dark:#0f0f23;--glass:rgba(255,255,255,0.08)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Outfit',sans-serif;min-height:100vh;background:var(--dark);display:flex;justify-content:center;align-items:center;padding:20px;position:relative;overflow-x:hidden}
+        .bg{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.4;animation:float 15s infinite;z-index:0}
+        .bg1{width:500px;height:500px;background:var(--primary);top:-150px;left:-150px}
+        .bg2{width:400px;height:400px;background:var(--secondary);bottom:-100px;right:-100px;animation-delay:-5s}
+        .bg3{width:300px;height:300px;background:var(--accent);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-10s}
+        @keyframes float{0%,100%{transform:translate(0)scale(1)}25%{transform:translate(30px,-30px)scale(1.1)}50%{transform:translate(-20px,20px)scale(0.95)}75%{transform:translate(20px,30px)scale(1.05)}}
+        .container{position:relative;z-index:1;background:var(--glass);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);border-radius:32px;max-width:480px;width:100%;padding:50px 40px;animation:slideUp 0.8s ease;box-shadow:0 25px 50px rgba(0,0,0,0.5)}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+        .avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));padding:4px;margin:0 auto 25px;animation:pulse 3s infinite}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(108,92,231,0.4)}50%{box-shadow:0 0 0 20px rgba(108,92,231,0)}}
+        .avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:56px}
+        .name{font-size:32px;font-weight:700;color:#fff;text-align:center;margin-bottom:8px;background:linear-gradient(135deg,#fff,#a29bfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .tagline{color:rgba(255,255,255,0.5);font-size:13px;text-align:center;letter-spacing:3px;text-transform:uppercase}
+        .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);margin:35px 0}
+        .section{margin-bottom:30px}
+        .section-title{font-size:11px;color:var(--secondary);letter-spacing:3px;text-transform:uppercase;margin-bottom:15px;font-weight:600}
+        .bio{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.8}
+        .skills{display:flex;flex-wrap:wrap;gap:10px}
+        .skill{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:10px 18px;border-radius:50px;color:#fff;font-size:14px;transition:all 0.3s}
+        .skill:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;transform:translateY(-3px)}
+        .links{display:flex;flex-direction:column;gap:12px}
+        .link{display:flex;align-items:center;gap:15px;padding:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;text-decoration:none;color:#fff;transition:all 0.3s}
+        .link:hover{background:rgba(255,255,255,0.1);transform:translateX(8px)}
+        .link-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:20px}
+        .link-title{font-weight:500;margin-bottom:2px}
+        .link-desc{font-size:12px;color:rgba(255,255,255,0.5)}
+        .footer{text-align:center;margin-top:30px;color:rgba(255,255,255,0.3);font-size:13px}
+        .footer span{color:var(--accent)}
+        @media(max-width:480px){.container{padding:35px 24px}.name{font-size:26px}}
     </style>
 </head>
 <body>
+    <div class="bg bg1"></div><div class="bg bg2"></div><div class="bg bg3"></div>
     <div class="container">
-        <div class="header">
-            <div class="avatar">👋</div>
-            <div class="name">豪豪</div>
-            <div class="title">欢迎来到我的个人主页</div>
+        <div class="avatar"><div class="avatar-inner">👋</div></div>
+        <h1 class="name">豪豪</h1>
+        <p class="tagline">Welcome to my world</p>
+        <div class="divider"></div>
+        <div class="section">
+            <div class="section-title">关于</div>
+            <p class="bio">你好！我是豪豪，一个热爱技术和探索的人。喜欢折腾新东西，享受解决问题的乐趣。🌟</p>
         </div>
-        <div class="content">
-            <div class="section">
-                <div class="section-title">关于我</div>
-                <p class="intro">你好！我是豪豪，一个热爱技术和探索的人。期待与你相遇！</p>
-            </div>
-            <div class="section">
-                <div class="section-title">技能标签</div>
-                <div class="skills">
-                    <span class="skill-tag">💻 编程</span>
-                    <span class="skill-tag">🎨 设计</span>
-                    <span class="skill-tag">📱 开发</span>
-                    <span class="skill-tag">🤖 AI</span>
-                </div>
+        <div class="section">
+            <div class="section-title">技能</div>
+            <div class="skills">
+                <span class="skill">💻 编程</span>
+                <span class="skill">🎨 设计</span>
+                <span class="skill">📱 开发</span>
+                <span class="skill">🤖 AI</span>
             </div>
         </div>
-        <div class="footer">made with ❤️ by 豪豪</div>
+        <div class="section">
+            <div class="section-title">连接</div>
+            <div class="links">
+                <a href="mailto:your@email.com" class="link"><div class="link-icon">📧</div><div><div class="link-title">发送邮件</div><div class="link-desc">来封邮件吧</div></div></a>
+                <a href="https://github.com/tjh0614" class="link" target="_blank"><div class="link-icon">🐙</div><div><div class="link-title">GitHub</div><div class="link-desc">看看我的项目</div></div></a>
+            </div>
+        </div>
+        <div class="footer">Made with <span>♥</span> by 豪豪</div>
     </div>
 </body>
 </html>
