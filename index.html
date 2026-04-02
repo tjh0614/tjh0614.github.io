@@ -50,7 +50,6 @@
             grid-template-columns: 280px 1fr 300px;
             gap: 2rem;
         }
-        /* 左侧卡片 */
         .profile-card {
             background: rgba(8, 8, 12, 0.65);
             backdrop-filter: blur(12px);
@@ -70,7 +69,9 @@
             justify-content: center;
             font-size: 2.8rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            overflow:hidden;
         }
+        .avatar img{width:100%;height:100%;object-fit:cover;}
         .name { font-size: 1.6rem; font-weight: 600; text-align: center; color: #ffffff; margin-bottom: 0.2rem; }
         .badge { text-align: center; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #8f8bbe; margin-bottom: 1.5rem; }
         .bio { font-size: 0.85rem; color: #cdd4f0; line-height: 1.6; margin: 1rem 0; border-left: 1px solid rgba(108, 92, 231, 0.4); padding-left: 1rem; }
@@ -94,7 +95,6 @@
         .contact-icon { font-size: 1.2rem; width: 28px; }
         .contact-text { font-size: 0.85rem; font-weight: 500; }
         .contact-sub { font-size: 0.65rem; color: #8f99cf; }
-        /* 中间文章区域 */
         .articles-area {
             background: rgba(6, 6, 10, 0.45);
             backdrop-filter: blur(8px);
@@ -118,7 +118,6 @@
         .post-excerpt { color: #bac2e3; font-size: 0.85rem; line-height: 1.55; margin-bottom: 0.8rem; }
         .read-link { font-size: 0.75rem; color: #9b93e0; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.2s; }
         .read-link:hover { gap: 8px; }
-        /* 右侧侧边栏 */
         .sidebar-right {
             background: rgba(8, 8, 12, 0.65);
             backdrop-filter: blur(12px);
@@ -154,7 +153,6 @@
         .tab-pane { display: none; animation: fadeIn 0.2s ease; }
         .tab-pane.active-pane { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        /* 留言板样式 */
         .comment-list { max-height: 280px; overflow-y: auto; margin-bottom: 1rem; padding-right: 0.3rem; }
         .comment-item { background: rgba(255,255,255,0.03); border-radius: 1rem; padding: 0.7rem; margin-bottom: 0.8rem; border-left: 2px solid #6c5ce7; }
         .comment-name { font-weight: 600; font-size: 0.8rem; color: #cbc3ff; }
@@ -177,17 +175,10 @@
         }
         .btn:hover { opacity: 0.85; }
         .delete-comment { background: none; border: none; color: #fd79a8; cursor: pointer; font-size: 0.65rem; float: right; }
-        /* 文件上传 */
         .upload-area { border: 1px dashed rgba(108,92,231,0.5); border-radius: 1rem; padding: 1rem; text-align: center; background: rgba(0,0,0,0.3); margin-bottom: 1rem; }
         .file-list { margin-top: 0.8rem; font-size: 0.7rem; color: #b9c2e6; max-height: 180px; overflow-y: auto; }
         .file-item { display: flex; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 0.3rem 0.6rem; border-radius: 2rem; margin-bottom: 0.4rem; }
         .preview-img { max-width: 100%; max-height: 120px; margin-top: 0.5rem; border-radius: 0.8rem; }
-        /* 在线编辑 */
-        .editor-area { background: rgba(0,0,0,0.4); border-radius: 1rem; padding: 0.8rem; }
-        .editor-toolbar { margin-bottom: 0.5rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
-        .editor-content { background: rgba(20,20,30,0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.8rem; padding: 0.6rem; min-height: 140px; color: #eef2ff; font-family: inherit; font-size: 0.8rem; outline: none; white-space: pre-wrap; overflow-y: auto; }
-        .saved-note { margin-top: 0.8rem; font-size: 0.65rem; color: #8f99cf; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.5rem; }
-        /* AI 助手样式 */
         .ai-chat-container { display: flex; flex-direction: column; gap: 1rem; }
         .api-key-area { background: rgba(0,0,0,0.4); border-radius: 1rem; padding: 0.5rem; margin-bottom: 0.5rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
         .api-key-input { flex: 1; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 2rem; padding: 0.4rem 0.8rem; color: white; font-size: 0.7rem; font-family: monospace; }
@@ -202,6 +193,7 @@
         .chat-input:focus { outline: none; border-color: #6c5ce7; }
         .typing-indicator { font-size: 0.65rem; color: #9b93e0; margin-left: 0.5rem; }
         .footer-note { margin-top: 1.5rem; text-align: center; font-size: 0.7rem; color: #5f689b; border-top: 0.5px solid rgba(255,255,255,0.05); padding-top: 1rem; }
+        #postEditorModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);z-index:1000;align-items:center;justify-content:center;}
         @media (max-width: 1000px) {
             .grid-main { grid-template-columns: 1fr; gap: 1.5rem; }
             .sidebar-right { order: 2; }
@@ -230,7 +222,6 @@
         </div>
     </nav>
     <div class="grid-main">
-        <!-- 左侧个人卡片 -->
         <aside class="profile-card">
             <div class="avatar" id="profileAvatar">🌌</div>
             <div class="name" id="profileName">豪</div>
@@ -244,21 +235,13 @@
                 <a href="https://github.com/tjh0614" class="contact-link" target="_blank"><span class="contact-icon">⌨️</span><div><div class="contact-text">GitHub</div><div class="contact-sub">开源星轨</div></div></a>
             </div>
         </aside>
-        <!-- 中间文章列表 -->
         <main class="articles-area">
             <div class="decor-nav"><a href="#" class="active">星尘笔记</a><a href="#">灵感清单</a><a href="#">深空手记</a></div>
             <div class="section-header"><h2>／最近星尘</h2><div style="display: flex; align-items: center; gap: 1rem;"><span style="font-size: 0.7rem; color:#6f78b0;">✦ 4 篇新想</span><button class="btn" id="publishPostBtn" style="font-size: 0.7rem; padding: 0.3rem 0.8rem;">📝 发布文章</button></div></div>
-            <div class="post-list">
-                <article class="post-item"><div class="post-meta"><span>03.18.2025</span><span>◈ 6 min read</span></div><h3 class="post-title"><a href="#">AI 协作 · 重构创造力边界</a></h3><p class="post-excerpt">当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。</p><a href="#" class="read-link">探索 →</a></article>
-                <article class="post-item"><div class="post-meta"><span>03.08.2025</span><span>◈ 4 min read</span></div><h3 class="post-title"><a href="#">暗色模式设计：超越美学的体验构建</a></h3><p class="post-excerpt">从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。</p><a href="#" class="read-link">探索 →</a></article>
-                <article class="post-item"><div class="post-meta"><span>02.24.2025</span><span>◈ 9 min read</span></div><h3 class="post-title"><a href="#">独立开发 2.0：工具链与认知盈余</a></h3><p class="post-excerpt">从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。</p><a href="#" class="read-link">探索 →</a></article>
-                <article class="post-item"><div class="post-meta"><span>02.10.2025</span><span>◈ 5 min read</span></div><h3 class="post-title"><a href="#">星辰语法：生成式艺术与代码</a></h3><p class="post-excerpt">用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。</p><a href="#" class="read-link">探索 →</a></article>
-            </div>
+            <div class="post-list"></div>
             <div class="footer-note" style="margin-top: 1.5rem;">✦ 保持好奇，像星星一样燃烧 ✦</div>
         </main>
-        
-        <!-- 文章编辑模态框 -->
-        <div id="postEditorModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(12px); z-index: 1000; flex-direction: column; align-items: center; justify-content: center;">
+        <div id="postEditorModal">
             <div style="background: rgba(10,10,20,0.9); border-radius: 2rem; padding: 2rem; width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <h3 style="color: #ffffff; font-size: 1.3rem; font-weight: 600;">✨ 发布新文章</h3>
@@ -274,14 +257,12 @@
                 </div>
             </div>
         </div>
-        <!-- 右侧侧边栏：留言板 + 上传 + 笔记 + AI助手 -->
         <aside class="sidebar-right">
             <div class="interactive-tabs">
                 <button class="tab-btn active" data-tab="comments">💬 留言</button>
                 <button class="tab-btn" data-tab="upload">📁 上传</button>
                 <button class="tab-btn" data-tab="ai">🤖 AI 助手</button>
             </div>
-            <!-- 留言板 -->
             <div id="comments-pane" class="tab-pane active-pane">
                 <div class="comment-list" id="commentList"></div>
                 <div class="comment-form">
@@ -290,12 +271,11 @@
                     <button class="btn" id="submitComment">✨ 发送留言</button>
                 </div>
             </div>
-            <!-- 文件上传 -->
             <div id="upload-pane" class="tab-pane">
-                <div style="margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <h4 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.6rem; color: #cbc3ff;">🌌 GitHub 存储</h4>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem;">
-                    </div>
+                <div class="upload-area">
+                    <input type="file" id="fileInput" multiple style="display:none">
+                    <button class="btn" id="uploadBtn">📂 选择文件</button>
+                    <div class="file-list" id="fileList"></div>
                 </div>
                 <div id="uploadProgress" style="display: none; margin-bottom: 1rem; padding: 0.8rem; background: rgba(0,0,0,0.3); border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
                     <div style="font-size: 0.75rem; color: #a5aedb; margin-bottom: 0.5rem;">📤 上传进度</div>
@@ -304,15 +284,8 @@
                     </div>
                     <div id="progressText" style="font-size: 0.65rem; color: #8f99cf; margin-top: 0.3rem; text-align: right;">0%</div>
                 </div>
-                <div class="upload-area">
-                    <input type="file" id="fileInput" multiple style="display:none">
-                    <button class="btn" id="uploadBtn">📂 选择文件</button>
-                    <div class="file-list" id="fileList"></div>
-                </div>
                 <div id="filePreview" style="margin-top: 0.8rem;"></div>
             </div>
-
-            <!-- AI 助手 (DeepSeek) -->
             <div id="ai-pane" class="tab-pane">
                 <div class="ai-chat-container">
                     <div class="api-key-area">
@@ -334,966 +307,308 @@
     </div>
 </div>
 <script>
-    (function() {
-        // ========== 星空背景 (完整保留) ==========
-        const canvas = document.getElementById('starCanvas');
-        let ctx = canvas.getContext('2d');
-        let stars = [], meteors = [];
-        let width, height;
-        let targetOffsetX = 0, targetOffsetY = 0, currentOffsetX = 0, currentOffsetY = 0;
-        const STAR_COUNT = 600, MAX_OFFSET = 18; // 减少星星数量以提高性能
-        const starColors = ['rgba(255, 245, 225, {alpha})','rgba(235, 240, 255, {alpha})','rgba(255, 235, 210, {alpha})','rgba(210, 225, 255, {alpha})'];
-        class Star {
-            constructor(x,y,radius,bright,speed,colorType){ this.x=x; this.y=y; this.radius=radius; this.baseBrightness=bright; this.twinkleSpeed=speed; this.phase=Math.random()*Math.PI*2; this.colorType=colorType; this.depthFactor=Math.min(1.0, radius/2.8); }
-            getAlpha(now){ let twinkle=0.6+0.4*Math.sin(now*this.twinkleSpeed+this.phase); return Math.min(0.95, Math.max(0.15, this.baseBrightness*twinkle)); }
-            getColor(alpha){ return starColors[this.colorType%starColors.length].replace('{alpha}',alpha); }
+(function() {
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [], meteors = [];
+    let width, height;
+    let targetOffsetX = 0, targetOffsetY = 0, currentOffsetX = 0, currentOffsetY = 0;
+    const STAR_COUNT = 600, MAX_OFFSET = 18;
+    const starColors = ['rgba(255, 245, 225, {alpha})','rgba(235, 240, 255, {alpha})','rgba(255, 235, 210, {alpha})','rgba(210, 225, 255, {alpha})'];
+    class Star {
+        constructor(x,y,radius,bright,speed,colorType){ this.x=x; this.y=y; this.radius=radius; this.baseBrightness=bright; this.twinkleSpeed=speed; this.phase=Math.random()*Math.PI*2; this.colorType=colorType; this.depthFactor=Math.min(1.0, radius/2.8); }
+        getAlpha(now){ let twinkle=0.6+0.4*Math.sin(now*this.twinkleSpeed+this.phase); return Math.min(0.95, Math.max(0.15, this.baseBrightness*twinkle)); }
+        getColor(alpha){ return starColors[this.colorType%starColors.length].replace('{alpha}',alpha); }
+    }
+    class Meteor {
+        constructor(){ this.x=Math.random()*width; this.y=Math.random()*height*0.6; this.vx=(Math.random()*6+3)*(Math.random()>0.5?1:-1); this.vy=Math.random()*5+2; if(Math.abs(this.vx)<2) this.vx=this.vx>0?3:-3; this.life=1.0; this.decay=0.008+Math.random()*0.01; }
+        update(){ this.x+=this.vx; this.y+=this.vy; this.life-=this.decay; return this.life>0 && this.x+40>0 && this.x-40<width && this.y<height+100; }
+        draw(ctx,now){ let alpha=this.life*0.8; ctx.beginPath(); ctx.moveTo(this.x,this.y); ctx.lineTo(this.x-this.vx*1.2,this.y-this.vy*1.2); ctx.lineWidth=1.8; ctx.strokeStyle=`rgba(255,235,200,${alpha*0.9})`; ctx.stroke(); ctx.beginPath(); ctx.arc(this.x,this.y,2.2,0,Math.PI*2); ctx.fillStyle=`rgba(255,210,150,${alpha})`; ctx.fill(); for(let i=1;i<=3;i++){ let bx=this.x-this.vx*(i*1.5), by=this.y-this.vy*(i*1.5); ctx.beginPath(); ctx.arc(bx,by,1.5-i*0.3,0,Math.PI*2); ctx.fillStyle=`rgba(255,200,140,${alpha*(0.5-i*0.1)})`; ctx.fill(); } }
+    }
+    function generateStars(){
+        stars=[]; for(let i=0;i<STAR_COUNT;i++){ let x,y; if(Math.random()<0.28){ let cx=Math.random()*0.8+0.1, cy=Math.random()*0.8+0.1; x=cx+(Math.random()-0.5)*0.08; y=cy+(Math.random()-0.5)*0.06; x=Math.min(0.98,Math.max(0.02,x)); y=Math.min(0.98,Math.max(0.02,y)); } else { x=Math.random(); y=Math.random(); }
+            let r=0.7+Math.pow(Math.random(),1.5)*3.0; let bright=0.3+(r/4.0)*0.7; bright=Math.min(0.95,bright); let speed=0.002+Math.random()*0.012; let ct=Math.floor(Math.random()*starColors.length); stars.push(new Star(x,y,r,bright,speed,ct)); }
+        for(let i=0;i<300;i++){ let x=Math.random(),y=Math.random(),r=0.4+Math.random()*0.6,b=0.2+Math.random()*0.4,s=0.001+Math.random()*0.008,ct=Math.floor(Math.random()*starColors.length); stars.push(new Star(x,y,r,b,s,ct)); }
+    }
+    let lastMeteor=0; function tryAddMeteor(now){ if(meteors.length>=2) return; let interval=38+Math.random()*45; if(now-lastMeteor>interval){ meteors.push(new Meteor()); lastMeteor=now; } }
+    let mouseMove=false; window.addEventListener('mousemove',(e)=>{ mouseMove=true; let nx=(e.clientX/width)*2-1, ny=(e.clientY/height)*2-1; targetOffsetX=nx*MAX_OFFSET; targetOffsetY=ny*MAX_OFFSET; });
+    setInterval(()=>{ if(!mouseMove){ targetOffsetX=0; targetOffsetY=0; } currentOffsetX+=(targetOffsetX-currentOffsetX)*0.08; currentOffsetY+=(targetOffsetY-currentOffsetY)*0.08; },30);
+    function drawStars(nowMs){ 
+        if(!ctx) return; 
+        let nowSec=nowMs/1000; 
+        ctx.clearRect(0,0,width,height); 
+        ctx.fillStyle='#000000'; 
+        ctx.fillRect(0,0,width,height); 
+        let offX=currentOffsetX, offY=currentOffsetY;
+        for(let s of stars){ 
+            let dx=s.x*width+offX*(s.depthFactor*0.7), dy=s.y*height+offY*(s.depthFactor*0.7); 
+            if(dx<-20||dx>width+20||dy<-20||dy>height+20) continue; 
+            let alpha=s.getAlpha(nowSec); 
+            ctx.beginPath(); ctx.arc(dx,dy,s.radius,0,Math.PI*2); ctx.fillStyle=s.getColor(alpha); ctx.fill();
+            if(s.radius>1.8&&alpha>0.6){ ctx.beginPath(); ctx.arc(dx,dy,s.radius*1.5,0,Math.PI*2); ctx.fillStyle=`rgba(255,220,170,${alpha*0.2})`; ctx.fill(); } 
         }
-        class Meteor {
-            constructor(){ this.x=Math.random()*width; this.y=Math.random()*height*0.6; this.vx=(Math.random()*6+3)*(Math.random()>0.5?1:-1); this.vy=Math.random()*5+2; if(Math.abs(this.vx)<2) this.vx=this.vx>0?3:-3; this.life=1.0; this.decay=0.008+Math.random()*0.01; }
-            update(){ this.x+=this.vx; this.y+=this.vy; this.life-=this.decay; return this.life>0 && this.x+40>0 && this.x-40<width && this.y<height+100; }
-            draw(ctx,now){ let alpha=this.life*0.8; ctx.beginPath(); ctx.moveTo(this.x,this.y); ctx.lineTo(this.x-this.vx*1.2,this.y-this.vy*1.2); ctx.lineWidth=1.8; ctx.strokeStyle=`rgba(255,235,200,${alpha*0.9})`; ctx.stroke(); ctx.beginPath(); ctx.arc(this.x,this.y,2.2,0,Math.PI*2); ctx.fillStyle=`rgba(255,210,150,${alpha})`; ctx.fill(); for(let i=1;i<=3;i++){ let bx=this.x-this.vx*(i*1.5), by=this.y-this.vy*(i*1.5); ctx.beginPath(); ctx.arc(bx,by,1.5-i*0.3,0,Math.PI*2); ctx.fillStyle=`rgba(255,200,140,${alpha*(0.5-i*0.1)})`; ctx.fill(); } }
-        }
-        function generateStars(){
-            stars=[]; for(let i=0;i<STAR_COUNT;i++){ let x,y; if(Math.random()<0.28){ let cx=Math.random()*0.8+0.1, cy=Math.random()*0.8+0.1; x=cx+(Math.random()-0.5)*0.08; y=cy+(Math.random()-0.5)*0.06; x=Math.min(0.98,Math.max(0.02,x)); y=Math.min(0.98,Math.max(0.02,y)); } else { x=Math.random(); y=Math.random(); }
-                let r=0.7+Math.pow(Math.random(),1.5)*3.0; let bright=0.3+(r/4.0)*0.7; bright=Math.min(0.95,bright); let speed=0.002+Math.random()*0.012; let ct=Math.floor(Math.random()*starColors.length); stars.push(new Star(x,y,r,bright,speed,ct)); }
-            for(let i=0;i<300;i++){ let x=Math.random(),y=Math.random(),r=0.4+Math.random()*0.6,b=0.2+Math.random()*0.4,s=0.001+Math.random()*0.008,ct=Math.floor(Math.random()*starColors.length); stars.push(new Star(x,y,r,b,s,ct)); }
-        }
-        let lastMeteor=0; function tryAddMeteor(now){ if(meteors.length>=2) return; let interval=38+Math.random()*45; if(now-lastMeteor>interval){ meteors.push(new Meteor()); lastMeteor=now; } }
-        let mouseMove=false; window.addEventListener('mousemove',(e)=>{ mouseMove=true; let nx=(e.clientX/width)*2-1, ny=(e.clientY/height)*2-1; targetOffsetX=nx*MAX_OFFSET; targetOffsetY=ny*MAX_OFFSET; });
-        setInterval(()=>{ if(!mouseMove){ targetOffsetX=0; targetOffsetY=0; } currentOffsetX+=(targetOffsetX-currentOffsetX)*0.08; currentOffsetY+=(targetOffsetY-currentOffsetY)*0.08; },30);
-        function drawStars(nowMs){ 
-            if(!ctx) return; 
-            let nowSec=nowMs/1000; 
-            ctx.clearRect(0,0,width,height); 
-            ctx.fillStyle='#000000'; 
-            ctx.fillRect(0,0,width,height); 
-            let offX=currentOffsetX, offY=currentOffsetY; 
-            
-            // 批量绘制星星，减少Canvas API调用
-            for(let s of stars){ 
-                let dx=s.x*width+offX*(s.depthFactor*0.7), 
-                    dy=s.y*height+offY*(s.depthFactor*0.7); 
-                if(dx<-20||dx>width+20||dy<-20||dy>height+20) continue; 
-                let alpha=s.getAlpha(nowSec); 
-                ctx.beginPath(); 
-                ctx.arc(dx,dy,s.radius,0,Math.PI*2); 
-                ctx.fillStyle=s.getColor(alpha); 
-                ctx.fill(); 
-                if(s.radius>1.8&&alpha>0.6){ 
-                    ctx.beginPath(); 
-                    ctx.arc(dx,dy,s.radius*1.5,0,Math.PI*2); 
-                    ctx.fillStyle=`rgba(255,220,170,${alpha*0.2})`; 
-                    ctx.fill(); 
-                } 
-            }
-            
-            // 处理流星
-            for(let i=0;i<meteors.length;i++){ 
-                if(meteors[i].update()) { 
-                    meteors[i].draw(ctx,nowSec); 
-                } else { 
-                    meteors.splice(i--,1); 
-                } 
-            } 
-            
-            tryAddMeteor(nowSec); 
-        }
-        function resizeCanvas(){ width=window.innerWidth; height=window.innerHeight; canvas.width=width; canvas.height=height; }
-        function animate(t){ drawStars(t); requestAnimationFrame(animate); }
-        resizeCanvas(); generateStars(); window.addEventListener('resize',()=>{ resizeCanvas(); targetOffsetX=0; targetOffsetY=0; currentOffsetX=0; currentOffsetY=0; }); lastMeteor=performance.now()/1000-Math.random()*30; requestAnimationFrame(animate);
+        for(let i=0;i<meteors.length;i++){ if(meteors[i].update()) meteors[i].draw(ctx,nowSec); else meteors.splice(i--,1); }
+        tryAddMeteor(nowSec); 
+    }
+    function resizeCanvas(){ width=window.innerWidth; height=window.innerHeight; canvas.width=width; canvas.height=height; }
+    function animate(t){ drawStars(t); requestAnimationFrame(animate); }
+    resizeCanvas(); generateStars(); window.addEventListener('resize',()=>{ resizeCanvas(); targetOffsetX=0; targetOffsetY=0; currentOffsetX=0; currentOffsetY=0; }); lastMeteor=performance.now()/1000-Math.random()*30; requestAnimationFrame(animate);
 
-        // ========== 留言板 ==========
-        let comments = JSON.parse(localStorage.getItem('starComments') || '[]');
-        function renderComments() {
-            const container = document.getElementById('commentList');
-            if(!container) return;
-            if(comments.length===0){ container.innerHTML='<div style="text-align:center; color:#7f86b0; padding:1rem;">✨ 暂无留言，做第一个星际旅人吧 ✨</div>'; return; }
-            container.innerHTML = comments.map((c,idx)=>`<div class="comment-item"><div><span class="comment-name">${escapeHtml(c.name)}</span><span class="comment-time">${c.time}</span><button class="delete-comment" data-idx="${idx}">✖</button></div><div class="comment-text">${escapeHtml(c.text)}</div></div>`).join('');
-            document.querySelectorAll('.delete-comment').forEach(btn=>{ 
-                btn.addEventListener('click',async(e)=>{ 
-                    let idx=parseInt(btn.dataset.idx); 
-                    comments.splice(idx,1); 
-                    localStorage.setItem('starComments',JSON.stringify(comments)); 
-                    // 同步到 GitHub
-                    await saveToGitHub(SYNC_CONFIG.commentsFile, comments);
-                    renderComments(); 
-                }); 
-            });
-        }
-        function escapeHtml(str){ 
-            return str.replace(/[&<>"']/g, function(m){
-                if(m==='&') return '&amp;';
-                if(m==='<') return '&lt;';
-                if(m==='>') return '&gt;';
-                if(m==='"') return '&quot;';
-                if(m==='') return '&#39;';
-                return m;
-            }); 
-        }
-        document.getElementById('submitComment')?.addEventListener('click',()=>{
-            let name=document.getElementById('commentName').value.trim();
-            let text=document.getElementById('commentText').value.trim();
-            
-            // 输入验证
-            if(!name) name='星际旅人';
-            if(!text) return;
-            
-            // 限制输入长度
-            if(name.length>50){
-                alert('昵称长度不能超过50个字符');
-                return;
-            }
-            if(text.length>500){
-                alert('留言内容不能超过500个字符');
-                return;
-            }
-            
-            // 防止XSS攻击
-            name=escapeHtml(name);
-            text=escapeHtml(text);
-            
-            let time=new Date().toLocaleString();
-            comments.unshift({name,text,time});
-            
-            // 限制留言数量，避免 localStorage 空间不足
-            if(comments.length>100){
-                comments=comments.slice(0,100);
-            }
-            
-            localStorage.setItem('starComments',JSON.stringify(comments));
-            // 同步到 GitHub
-            await saveToGitHub(SYNC_CONFIG.commentsFile, comments);
-            renderComments();
-            document.getElementById('commentName').value='';
-            document.getElementById('commentText').value='';
+    function escapeHtml(str){
+        if(!str) return '';
+        return str.replace(/[&<>"']/g,m=>{
+            if(m==='&')return'&amp;';if(m==='<')return'&lt;';if(m==='>')return'&gt;';if(m==='"')return'&quot;';return'&#39;';
         });
+    }
+
+    const githubConfig={
+        owner:'tjh0614',
+        repo:'blog-uploads',
+        token:localStorage.getItem('githubToken')||''
+    };
+    const SYNC_CONFIG={commentsFile:'data/comments.json',postsFile:'data/posts.json',filesFile:'data/files.json'};
+
+    async function fetchFromGitHub(filePath){
+        try{
+            const c=new AbortController();const t=setTimeout(()=>c.abort(),5000);
+            const res=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
+                headers:{Authorization:`token ${githubConfig.token}`},signal:c.signal
+            });
+            clearTimeout(t);
+            if(res.ok){let d=await res.json();return JSON.parse(atob(d.content));}
+            if(res.status===404)return[];return null;
+        }catch{return null;}
+    }
+    async function saveToGitHub(filePath,data){
+        try{
+            const c1=new AbortController();const t1=setTimeout(()=>c1.abort(),5000);
+            let sha=null;
+            const chk=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
+                headers:{Authorization:`token ${githubConfig.token}`},signal:c1.signal
+            });
+            clearTimeout(t1);
+            if(chk.ok){let d=await chk.json();sha=d.sha;}
+            const content=JSON.stringify(data,null,2);
+            const b64=btoa(unescape(encodeURIComponent(content)));
+            const c2=new AbortController();const t2=setTimeout(()=>c2.abort(),10000);
+            const res=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
+                method:'PUT',
+                headers:{Authorization:`token ${githubConfig.token}`,'Content-Type':'application/json'},
+                body:JSON.stringify({message:`Update ${filePath}`,content:b64,branch:'main',sha:sha}),
+                signal:c2.signal
+            });
+            clearTimeout(t2);
+            return res.ok;
+        }catch{return false;}
+    }
+
+    let comments=JSON.parse(localStorage.getItem('starComments')||'[]');
+    function renderComments(){
+        const wrap=document.getElementById('commentList');
+        if(!wrap)return;
+        if(comments.length===0){wrap.innerHTML='<div style="text-align:center;color:#7f86b0;padding:1rem;">✨ 暂无留言，做第一个星际旅人吧 ✨</div>';return;}
+        wrap.innerHTML=comments.map((c,i)=>`<div class="comment-item"><div><span class="comment-name">${escapeHtml(c.name)}</span><span class="comment-time">${c.time}</span><button class="delete-comment" data-idx="${i}">✖</button></div><div class="comment-text">${escapeHtml(c.text)}</div></div>`).join('');
+        document.querySelectorAll('.delete-comment').forEach(btn=>{
+            btn.addEventListener('click',async()=>{
+                let i=parseInt(btn.dataset.idx);
+                comments.splice(i,1);
+                localStorage.setItem('starComments',JSON.stringify(comments));
+                await saveToGitHub(SYNC_CONFIG.commentsFile,comments);
+                renderComments();
+            });
+        });
+    }
+    document.getElementById('submitComment')?.addEventListener('click',async()=>{
+        let n=document.getElementById('commentName').value.trim()||'星际旅人';
+        let t=document.getElementById('commentText').value.trim();
+        if(!t)return;
+        n=escapeHtml(n.slice(0,50));t=escapeHtml(t.slice(0,500));
+        let time=new Date().toLocaleString();
+        comments.unshift({name:n,text:t,time});
+        if(comments.length>100)comments=comments.slice(0,100);
+        localStorage.setItem('starComments',JSON.stringify(comments));
+        await saveToGitHub(SYNC_CONFIG.commentsFile,comments);
         renderComments();
+        document.getElementById('commentName').value='';
+        document.getElementById('commentText').value='';
+    });
+    renderComments();
 
-        // ========== 文件上传 ==========
-        const fileInput=document.getElementById('fileInput');
-        const uploadBtn=document.getElementById('uploadBtn');
-        const fileListDiv=document.getElementById('fileList');
-        const previewDiv=document.getElementById('filePreview');
-        
-        let uploadedFiles=JSON.parse(localStorage.getItem('starFiles')||'[]');
-        // GitHub 配置 - 用于存储和同步数据
-        const githubConfig={
-            owner:'tjh0614',
-            repo:'blog-uploads',
-            token:localStorage.getItem('githubToken') || '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'
-        };
-        
-        // 数据同步配置
-        const SYNC_CONFIG={
-            commentsFile:'data/comments.json',
-            postsFile:'data/posts.json',
-            filesFile:'data/files.json'
-        };
-        
-        // DOM 元素
-        const uploadProgress=document.getElementById('uploadProgress');
-        const progressBar=document.getElementById('progressBar');
-        const progressText=document.getElementById('progressText');
-        
-        // 获取 GitHub 用户信息
-        async function fetchGitHubUserInfo(){
-            try{
-                console.log('开始获取 GitHub 用户信息');
-                console.log('GitHub 配置:', githubConfig);
-                
-                const response=await fetch('https://api.github.com/user',{
-                    headers:{
-                        'Authorization':`token ${githubConfig.token}`
-                    }
-                });
-                
-                console.log('GitHub API 响应状态:', response.status);
-                
-                if(response.ok){
-                    const user=await response.json();
-                    console.log('GitHub 用户信息:', user);
-                    
-                    // 更新左侧个人卡片的头像和名称
-                    const profileAvatar=document.getElementById('profileAvatar');
-                    const profileName=document.getElementById('profileName');
-                    console.log('DOM 元素:', { profileAvatar, profileName });
-                    
-                    if(user.avatar_url && profileAvatar){
-                        profileAvatar.innerHTML=` <img src="${user.avatar_url}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
-                        console.log('头像更新成功');
-                    }
-                    if(user.login && profileName){
-                        profileName.textContent=user.login;
-                        console.log('昵称更新成功');
-                    }
-                } else {
-                    console.error('GitHub API 响应失败:', response.status, response.statusText);
-                    // 尝试获取错误详情
-                    try {
-                        const errorData = await response.json();
-                        console.error('GitHub API 错误详情:', errorData);
-                    } catch (e) {
-                        console.error('无法解析错误响应:', e);
-                    }
-                }
-            } catch(error){
-                console.error('获取 GitHub 用户信息失败:',error);
-            }
-        }
-        
-        // 显示上传进度
-        function showUploadProgress(){
-            uploadProgress.style.display='block';
-            progressBar.style.width='0%';
-            progressText.textContent='0%';
-        }
-        
-        // 更新上传进度
-        function updateUploadProgress(progress){
-            const percent=Math.round(progress*100);
-            progressBar.style.width=`${percent}%`;
-            progressText.textContent=`${percent}%`;
-        }
-        
-        // 隐藏上传进度
-        function hideUploadProgress(){
-            uploadProgress.style.display='none';
-        }
-        
-        // 从 GitHub 读取数据
-        async function fetchFromGitHub(filePath){
-            try{
-                // 添加超时设置
-                const controller=new AbortController();
-                const timeout=setTimeout(()=>controller.abort(), 5000); // 5秒超时
-                
-                const response=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
-                    headers:{
-                        'Authorization':`token ${githubConfig.token}`
-                    },
-                    signal:controller.signal
-                });
-                
-                clearTimeout(timeout);
-                
-                if(response.ok){
-                    const data=await response.json();
-                    const content=atob(data.content);
-                    return JSON.parse(content);
-                } else if(response.status===404){
-                    // 文件不存在，返回空数据
-                    return [];
-                } else {
-                    console.error('从 GitHub 读取数据失败:', response.status, response.statusText);
-                    return null;
-                }
-            } catch(error){
-                if(error.name==='AbortError'){
-                    console.error('从 GitHub 读取数据超时');
-                } else {
-                    console.error('从 GitHub 读取数据失败:',error);
-                }
-                return null;
-            }
-        }
-        
-        // 保存数据到 GitHub
-        async function saveToGitHub(filePath, data){
-            try{
-                // 先检查文件是否存在
-                const controller1=new AbortController();
-                const timeout1=setTimeout(()=>controller1.abort(), 5000); // 5秒超时
-                
-                const checkResponse=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
-                    headers:{
-                        'Authorization':`token ${githubConfig.token}`
-                    },
-                    signal:controller1.signal
-                });
-                
-                clearTimeout(timeout1);
-                
-                let sha=null;
-                if(checkResponse.ok){
-                    const checkData=await checkResponse.json();
-                    sha=checkData.sha;
-                }
-                
-                const content=JSON.stringify(data, null, 2);
-                const contentBase64=btoa(unescape(encodeURIComponent(content)));
-                
-                // 保存文件
-                const controller2=new AbortController();
-                const timeout2=setTimeout(()=>controller2.abort(), 10000); // 10秒超时
-                
-                const response=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
-                    method:'PUT',
-                    headers:{
-                        'Authorization':`token ${githubConfig.token}`,
-                        'Content-Type':'application/json'
-                    },
-                    body:JSON.stringify({
-                        message:`Update ${filePath}`,
-                        content:contentBase64,
-                        branch:'main',
-                        sha:sha
-                    }),
-                    signal:controller2.signal
-                });
-                
-                clearTimeout(timeout2);
-                
-                if(!response.ok){
-                    const error=await response.json();
-                    throw new Error(error.message||'保存数据失败');
-                }
-                
-                return true;
-            } catch(error){
-                if(error.name==='AbortError'){
-                    console.error('保存数据到 GitHub 超时');
-                } else {
-                    console.error('保存数据到 GitHub 失败:',error);
-                }
-                return false;
-            }
-        }
-        
-        // 同步数据
-        async function syncData(){
-            try{
-                // 读取评论数据
-                const syncedComments=await fetchFromGitHub(SYNC_CONFIG.commentsFile);
-                if(syncedComments!==null){
-                    comments=syncedComments;
-                    localStorage.setItem('starComments',JSON.stringify(comments));
-                    renderComments();
-                }
-                
-                // 读取文章数据
-                const syncedPosts=await fetchFromGitHub(SYNC_CONFIG.postsFile);
-                if(syncedPosts!==null){
-                    posts=syncedPosts;
-                    localStorage.setItem('starPosts',JSON.stringify(posts));
-                    renderPosts();
-                }
-                
-                // 读取文件数据
-                const syncedFiles=await fetchFromGitHub(SYNC_CONFIG.filesFile);
-                if(syncedFiles!==null){
-                    uploadedFiles=syncedFiles;
-                    localStorage.setItem('starFiles',JSON.stringify(uploadedFiles));
-                    renderFileList();
-                }
-            } catch(error){
-                console.error('同步数据失败:',error);
-                // 即使同步失败，程序也能继续运行
-            }
-        }
-        
-        // 初始化获取 GitHub 用户信息
-        fetchGitHubUserInfo();
-        
-        // 初始化同步数据
-        syncData();
-        
-        // 上传到 GitHub
-        async function uploadToGitHub(file, content){
-            if(!githubConfig.owner||!githubConfig.repo||!githubConfig.token){
-                throw new Error('请先配置 GitHub 信息');
-            }
-            
-            const filename=`uploads/${Date.now()}_${file.name}`;
-            const contentBase64=content.split(',')[1]; // 提取 Base64 内容
-            
-            // 模拟上传进度
-            let progress=0;
-            const progressInterval=setInterval(()=>{
-                progress+=0.1;
-                if(progress<=1){
-                    updateUploadProgress(progress);
-                }
-            }, 200);
-            
-            try{
-                const response=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filename}`,{
-                    method:'PUT',
-                    headers:{
-                        'Authorization':`token ${githubConfig.token}`,
-                        'Content-Type':'application/json'
-                    },
-                    body:JSON.stringify({
-                        message:`Upload file: ${file.name}`,
-                        content:contentBase64,
-                        branch:'main'
-                    })
-                });
-                
-                clearInterval(progressInterval);
-                updateUploadProgress(1); // 完成
-                
-                if(!response.ok){
-                    const error=await response.json();
-                    throw new Error(error.message||'上传失败');
-                }
-                
-                const data=await response.json();
-                return data.content.download_url;
-            } catch(error){
-                clearInterval(progressInterval);
-                throw error;
-            }
-        }
-        
-        function renderFileList(){
-            if(!fileListDiv) return;
-            if(uploadedFiles.length===0){ fileListDiv.innerHTML='<div style="opacity:0.6;">暂无上传文件，点击上传星尘档案</div>'; previewDiv.innerHTML=''; return; }
-            fileListDiv.innerHTML=uploadedFiles.map((f,idx)=>{
-                const storageIcon=f.githubUrl?'🌐':'💾';
-                return `<div class="file-item">
-                    <span>${storageIcon} ${f.name} (${(f.size/1024).toFixed(1)}KB)</span>
-                    ${f.githubUrl?`<a href="${f.githubUrl}" target="_blank" style="color:#9b93e0; font-size:0.6rem; margin-right:0.5rem;">查看</a>`:''}
-                    <button class="delete-comment" data-fileidx="${idx}" style="background:none; border:none;">✖</button>
-                </div>`;
-            }).join('');
-            
-            let firstImg=uploadedFiles.find(f=>f.type.startsWith('image/'));
-            if(firstImg){ 
-                const imgUrl=firstImg.githubUrl; // 只使用 GitHub URL，不再依赖本地 data
-                previewDiv.innerHTML=`<img src="${imgUrl}" class="preview-img" alt="预览">`;
-            } else { 
-                previewDiv.innerHTML=''; 
-            }
-            
-            document.querySelectorAll('[data-fileidx]').forEach(btn=>{
-                btn.addEventListener('click',async(e)=>{
-                    let idx=parseInt(btn.dataset.fileidx);
-                    uploadedFiles.splice(idx,1);
-                    localStorage.setItem('starFiles',JSON.stringify(uploadedFiles));
-                    // 同步到 GitHub
-                    await saveToGitHub(SYNC_CONFIG.filesFile, uploadedFiles);
-                    renderFileList();
-                });
-            });
-        }
-        
-        uploadBtn?.addEventListener('click',()=>fileInput.click());
-        fileInput?.addEventListener('change',async(e)=>{
-            const files=Array.from(e.target.files);
-            
-            // 检查文件数量
-            if(files.length>5){
-                alert('一次最多上传5个文件');
-                return;
-            }
-            
-            for(const file of files){
-                // 检查文件大小
-                if(file.size>80*1024*1024){ 
-                    alert('文件超过80MB，请压缩后上传'); 
-                    continue;
-                }
-                
-                // 检查文件类型（可选）
-                const allowedTypes=['image/jpeg','image/png','image/gif','image/webp','application/pdf','text/plain','application/json'];
-                if(!allowedTypes.includes(file.type) && !file.type.startsWith('text/')){
-                    alert('不支持的文件类型，请上传图片、PDF或文本文件');
-                    continue;
-                }
-                
-                // 显示上传进度
-                showUploadProgress();
-                
-                let reader=new FileReader();
-                reader.onload=async function(ev){
-                    try{
-                        const arrayBuffer=ev.target.result;
-                        // 分块处理 ArrayBuffer 转换为 Base64，避免栈溢出
-                        function arrayBufferToBase64(buffer){
-                            const chunksize=8192;
-                            const uint8Array=new Uint8Array(buffer);
-                            let result='';
-                            for(let i=0;i<uint8Array.length;i+=chunksize){
-                                const chunk=uint8Array.subarray(i,i+chunksize);
-                                result+=String.fromCharCode(...chunk);
-                            }
-                            return btoa(result);
-                        }
-                        const base64=arrayBufferToBase64(arrayBuffer);
-                        const content=`data:${file.type};base64,${base64}`;
-                        
-                        // 上传到 GitHub
-                        const githubUrl=await uploadToGitHub(file, content);
-                        
-                        // 只存储文件元数据和 GitHub URL，避免 localStorage 空间不足
-                        let fileObj={ 
-                            name:file.name, 
-                            size:file.size, 
-                            type:file.type, 
-                            githubUrl:githubUrl,
-                            uploadTime:new Date().toISOString()
-                        };
-                        
-                        let toast=document.createElement('div');
-                        toast.textContent='✦ 文件已上传到 GitHub ✦';
-                        toast.style.cssText='position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(108,92,231,0.75); backdrop-filter:blur(12px); color:#ffffff; padding:8px 20px; border-radius:60px; font-size:0.75rem; border:0.5px solid rgba(255,255,255,0.3); z-index:1000;';
-                        document.body.appendChild(toast);
-                        setTimeout(()=>toast.remove(),1800);
-                        
-                        uploadedFiles.push(fileObj);
-                        // 限制存储的文件数量，避免 localStorage 空间不足
-                        if(uploadedFiles.length>50){
-                            uploadedFiles=uploadedFiles.slice(-50);
-                        }
-                        localStorage.setItem('starFiles',JSON.stringify(uploadedFiles));
-                        // 同步到 GitHub
-                        await saveToGitHub(SYNC_CONFIG.filesFile, uploadedFiles);
-                        renderFileList();
-                    } catch(error){
-                        console.error('上传失败:',error);
-                        console.error('文件信息:',{
-                            name:file.name,
-                            size:file.size,
-                            type:file.type
-                        });
-                        alert('上传失败: '+error.message);
-                    } finally {
-                        // 隐藏上传进度
-                        setTimeout(hideUploadProgress, 500);
-                    }
-                };
-                reader.readAsArrayBuffer(file);
-            }
-            fileInput.value='';
-        });
-        renderFileList();
-
-
-
-        // ========== AI 助手 (DeepSeek) ==========
-        const apiKeyInput = document.getElementById('deepseekApiKey');
-        const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
-        const clearChatBtn = document.getElementById('clearChatBtn');
-        const chatMessagesDiv = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendChatBtn');
-        const typingIndicator = document.getElementById('typingIndicator');
-        let conversationHistory = JSON.parse(localStorage.getItem('aiConversation') || '[]');
-        let currentApiKey = localStorage.getItem('deepseekApiKey') || '';
-
-        if (currentApiKey) apiKeyInput.value = currentApiKey;
-        function renderChat() {
-            if (!chatMessagesDiv) return;
-            chatMessagesDiv.innerHTML = '';
-            conversationHistory.forEach(msg => {
-                const div = document.createElement('div');
-                div.className = `message ${msg.role}`;
-                const contentDiv = document.createElement('div');
-                contentDiv.className = 'message-content';
-                contentDiv.innerText = msg.content;
-                div.appendChild(contentDiv);
-                chatMessagesDiv.appendChild(div);
-            });
-            if (conversationHistory.length === 0) {
-                const welcomeDiv = document.createElement('div');
-                welcomeDiv.className = 'message assistant';
-                welcomeDiv.innerHTML = '<div class="message-content">✨ 我是你的深空AI助手，基于 DeepSeek 模型。输入你的问题，一起探索星辰大海～</div>';
-                chatMessagesDiv.appendChild(welcomeDiv);
-            }
-            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-        }
-        saveApiKeyBtn?.addEventListener('click', () => {
-            const key = apiKeyInput.value.trim();
-            if (key.startsWith('sk-')) {
-                // 验证API密钥格式
-                if (key.length < 30) {
-                    alert('API Key 格式不正确，请检查');
-                    return;
-                }
-                localStorage.setItem('deepseekApiKey', key);
-                currentApiKey = key;
-                let toast = document.createElement('div');
-                toast.textContent = '✦ API Key 已保存 ✦';
-                toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(108,92,231,0.75); backdrop-filter:blur(12px); color:#ffffff; padding:8px 20px; border-radius:60px; font-size:0.75rem; border:0.5px solid rgba(255,255,255,0.3); z-index:1000;';
-                document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 1800);
-            } else {
-                alert('请输入有效的 DeepSeek API Key (以 sk- 开头)');
-            }
-        });
-        clearChatBtn?.addEventListener('click', () => {
-            conversationHistory = [];
-            localStorage.setItem('aiConversation', JSON.stringify(conversationHistory));
-            renderChat();
-        });
-        async function callDeepSeek(userMessage) {
-            if (!currentApiKey) {
-                throw new Error('请先设置 DeepSeek API Key');
-            }
-            // 构建消息列表（保留最近10条上下文）
-            const messages = [...conversationHistory, { role: 'user', content: userMessage }];
-            const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${currentApiKey}`
-                },
-                body: JSON.stringify({
-                    model: 'deepseek-chat',
-                    messages: messages,
-                    temperature: 0.7,
-                    max_tokens: 800
-                })
-            });
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.error?.message || '请求失败');
-            }
-            const data = await response.json();
-            return data.choices[0].message.content;
-        }
-        async function sendMessage() {
-            const text = chatInput.value.trim();
-            if (!text) return;
-            
-            // 检查API密钥
-            if (!currentApiKey) {
-                alert('请先设置 DeepSeek API Key');
-                return;
-            }
-            
-            // 限制消息长度
-            if (text.length > 1000) {
-                alert('消息长度不能超过1000个字符');
-                return;
-            }
-            
-            // 添加用户消息
-            conversationHistory.push({ role: 'user', content: text });
-            renderChat();
-            chatInput.value = '';
-            typingIndicator.style.display = 'block';
-            
-            try {
-                const reply = await callDeepSeek(text);
-                conversationHistory.push({ role: 'assistant', content: reply });
-                // 限制上下文长度
-                if (conversationHistory.length > 20) conversationHistory = conversationHistory.slice(-20);
-                localStorage.setItem('aiConversation', JSON.stringify(conversationHistory));
-                renderChat();
-            } catch (error) {
-                console.error('AI 助手错误:', error);
-                let errorMsg = '❌ 出错: ';
-                if (error.message.includes('401')) {
-                    errorMsg += 'API Key 无效，请检查';
-                } else if (error.message.includes('429')) {
-                    errorMsg += '请求过于频繁，请稍后再试';
-                } else if (error.message.includes('500')) {
-                    errorMsg += '服务器错误，请稍后再试';
-                } else {
-                    errorMsg += error.message;
-                }
-                conversationHistory.push({ role: 'assistant', content: errorMsg });
-                renderChat();
-            } finally {
-                typingIndicator.style.display = 'none';
-            }
-        }
-        sendBtn?.addEventListener('click', sendMessage);
-        chatInput?.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-        renderChat();
-
-        // ========== 选项卡切换 ==========
-        const tabs = document.querySelectorAll('.tab-btn');
-        const panes = {
-            comments: document.getElementById('comments-pane'),
-            upload: document.getElementById('upload-pane'),
-            ai: document.getElementById('ai-pane')
-        };
-        tabs.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tab = btn.dataset.tab;
-                tabs.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                Object.values(panes).forEach(p => p.classList.remove('active-pane'));
-                if (panes[tab]) panes[tab].classList.add('active-pane');
-            });
-        });
-
-        // 装饰导航标签切换
-        document.querySelectorAll('.decor-nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                // 移除所有标签的活动状态
-                document.querySelectorAll('.decor-nav a').forEach(a => a.classList.remove('active'));
-                // 添加当前标签的活动状态
-                link.classList.add('active');
-                
-                // 根据标签显示不同的内容
-                const tabName = link.textContent;
-                const postList = document.querySelector('.post-list');
-                
-                if (tabName === '星尘笔记') {
-                    // 显示所有文章
-                    postList.innerHTML = posts.map(post => `
-                        <article class="post-item">
-                            <div class="post-meta">
-                                <span>${post.date}</span>
-                                <span>◈ ${post.readTime} min read</span>
-                                <button class="delete-comment" style="float: right; margin-left: 1rem;" data-postid="${post.id}">✖</button>
-                                <button class="read-link" style="float: right; background: none; border: none; padding: 0;" data-postid="${post.id}">编辑</button>
-                            </div>
-                            <h3 class="post-title"><a href="#">${escapeHtml(post.title)}</a></h3>
-                            <p class="post-excerpt">${escapeHtml(post.excerpt)}</p>
-                            <a href="#" class="read-link">探索 →</a>
-                        </article>
-                    `).join('');
-                } else if (tabName === '灵感清单') {
-                    // 显示灵感清单内容
-                    postList.innerHTML = `
-                        <div style="text-align: center; padding: 2rem;">
-                            <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: #cbc3ff;">✨ 灵感清单</h3>
-                            <p style="color: #b9c2e6; margin-bottom: 2rem;">记录你的创意灵感</p>
-                            <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 0 auto;">
-                                <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 1rem; border-left: 2px solid #6c5ce7;">
-                                    <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">AI 辅助设计</h4>
-                                    <p style="font-size: 0.8rem; color: #9b93e0;">利用生成式 AI 工具提升设计效率</p>
-                                </div>
-                                <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 1rem; border-left: 2px solid #6c5ce7;">
-                                    <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">响应式布局</h4>
-                                    <p style="font-size: 0.8rem; color: #9b93e0;">为不同设备优化用户体验</p>
-                                </div>
-                                <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 1rem; border-left: 2px solid #6c5ce7;">
-                                    <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">性能优化</h4>
-                                    <p style="font-size: 0.8rem; color: #9b93e0;">提升网站加载速度和交互响应</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                } else if (tabName === '深空手记') {
-                    // 显示深空手记内容
-                    postList.innerHTML = `
-                        <div style="text-align: center; padding: 2rem;">
-                            <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: #cbc3ff;">🌌 深空手记</h3>
-                            <p style="color: #b9c2e6; margin-bottom: 2rem;">探索技术与创意的边界</p>
-                            <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 0 auto;">
-                                <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 1rem; border-left: 2px solid #6c5ce7;">
-                                    <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">未来交互</h4>
-                                    <p style="font-size: 0.8rem; color: #9b93e0;">思考下一代用户界面设计</p>
-                                </div>
-                                <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 1rem; border-left: 2px solid #6c5ce7;">
-                                    <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">AI 伦理</h4>
-                                    <p style="font-size: 0.8rem; color: #9b93e0;">探讨人工智能的社会责任</p>
-                                </div>
-                                <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 1rem; border-left: 2px solid #6c5ce7;">
-                                    <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">创意编程</h4>
-                                    <p style="font-size: 0.8rem; color: #9b93e0;">用代码创造艺术与交互体验</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                // 重新添加删除和编辑事件
-                document.querySelectorAll('[data-postid]').forEach(btn => {
-                    if (btn.textContent.trim() === '✖') {
-                    btn.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        const postId = parseInt(btn.dataset.postid);
-                        posts = posts.filter(post => post.id !== postId);
-                        localStorage.setItem('starPosts', JSON.stringify(posts));
-                        // 同步到 GitHub
-                        await saveToGitHub(SYNC_CONFIG.postsFile, posts);
-                        renderPosts();
-                    });
-                    } else if (btn.textContent.trim() === '编辑') {
-                        btn.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const postId = parseInt(btn.dataset.postid);
-                            const post = posts.find(p => p.id === postId);
-                            if (post) {
-                                document.getElementById('postTitle').value = post.title;
-                                document.getElementById('postExcerpt').value = post.excerpt;
-                                document.getElementById('postEditorModal').style.display = 'flex';
-                                document.getElementById('postEditorModal').dataset.editingPostId = postId;
-                            }
-                        });
-                    }
-                });
-            });
-        });
-        
-        // 占位链接提示（仅适用于非装饰导航链接）
-        document.querySelectorAll('.read-link, .post-title a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (link.getAttribute('href') === '#') {
-                    e.preventDefault();
-                    let toast = document.createElement('div');
-                    toast.textContent = '✦ 完整星文即将抵达，敬请期待 ✦';
-                    toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.75); backdrop-filter:blur(12px); color:#d9d4ff; padding:8px 20px; border-radius:60px; font-size:0.75rem; border:0.5px solid rgba(108,92,231,0.5); z-index:1000;';
-                    document.body.appendChild(toast);
-                    setTimeout(() => toast.remove(), 1800);
-                }
-            });
-        });
-
-        // ========== 文章管理功能 ==========
-        let posts = JSON.parse(localStorage.getItem('starPosts') || JSON.stringify([
-            { id: 1, title: 'AI 协作 · 重构创造力边界', date: '03.18.2025', readTime: 6, excerpt: '当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。' },
-            { id: 2, title: '暗色模式设计：超越美学的体验构建', date: '03.08.2025', readTime: 4, excerpt: '从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。' },
-            { id: 3, title: '独立开发 2.0：工具链与认知盈余', date: '02.24.2025', readTime: 9, excerpt: '从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。' },
-            { id: 4, title: '星辰语法：生成式艺术与代码', date: '02.10.2025', readTime: 5, excerpt: '用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。' }
-        ]));
-
-        // 渲染文章列表
-        function renderPosts() {
-            const postList = document.querySelector('.post-list');
-            if (!postList) return;
-            
-            postList.innerHTML = posts.map(post => `
-                <article class="post-item">
-                    <div class="post-meta">
-                        <span>${post.date}</span>
-                        <span>◈ ${post.readTime} min read</span>
-                        <button class="delete-comment" style="float: right; margin-left: 1rem;" data-postid="${post.id}">✖</button>
-                        <button class="read-link" style="float: right; background: none; border: none; padding: 0;" data-postid="${post.id}">编辑</button>
-                    </div>
-                    <h3 class="post-title"><a href="#">${escapeHtml(post.title)}</a></h3>
-                    <p class="post-excerpt">${escapeHtml(post.excerpt)}</p>
-                    <a href="#" class="read-link">探索 →</a>
-                </article>
-            `).join('');
-
-            // 添加删除文章事件
-            document.querySelectorAll('[data-postid]').forEach(btn => {
-                if (btn.textContent.trim() === '✖') {
-                    btn.addEventListener('click', async (e) => {
-                    e.preventDefault();
-                    const postId = parseInt(btn.dataset.postid);
-                    posts = posts.filter(post => post.id !== postId);
-                    localStorage.setItem('starPosts', JSON.stringify(posts));
-                    // 同步到 GitHub
-                    await saveToGitHub(SYNC_CONFIG.postsFile, posts);
-                    renderPosts();
-                    });
-                } else if (btn.textContent.trim() === '编辑') {
-                    btn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const postId = parseInt(btn.dataset.postid);
-                        const post = posts.find(p => p.id === postId);
-                        if (post) {
-                            document.getElementById('postTitle').value = post.title;
-                            document.getElementById('postExcerpt').value = post.excerpt;
-                            document.getElementById('postEditorModal').style.display = 'flex';
-                            // 存储当前编辑的文章ID
-                            document.getElementById('postEditorModal').dataset.editingPostId = postId;
-                        }
-                    });
-                }
-            });
-        }
-
-        // 文章编辑模态框
-        const publishPostBtn = document.getElementById('publishPostBtn');
-        const postEditorModal = document.getElementById('postEditorModal');
-        const closeEditorBtn = document.getElementById('closeEditorBtn');
-        const cancelPostBtn = document.getElementById('cancelPostBtn');
-        const savePostBtn = document.getElementById('savePostBtn');
-
-        publishPostBtn?.addEventListener('click', () => {
-            // 清空表单
-            document.getElementById('postTitle').value = '';
-            document.getElementById('postExcerpt').value = '';
-            // 移除编辑状态
-            delete postEditorModal.dataset.editingPostId;
-            // 显示模态框
-            postEditorModal.style.display = 'flex';
-        });
-
-        closeEditorBtn?.addEventListener('click', () => {
-            postEditorModal.style.display = 'none';
-        });
-
-        cancelPostBtn?.addEventListener('click', () => {
-            postEditorModal.style.display = 'none';
-        });
-
-        savePostBtn?.addEventListener('click', () => {
-            const title = document.getElementById('postTitle').value.trim();
-            const excerpt = document.getElementById('postExcerpt').value.trim();
-
-            // 自动设置发布日期为当前日期
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const year = now.getFullYear();
-            const date = `${month}.${day}.${year}`;
-
-            // 根据文章摘要长度自动计算阅读时间
-            // 假设平均阅读速度为每分钟200字
-            const wordCount = excerpt.length;
-            const readTime = Math.max(1, Math.ceil(wordCount / 200));
-
-            if (!title || !excerpt) {
-                alert('请填写文章标题和内容');
-                return;
-            }
-
-            const editingPostId = postEditorModal.dataset.editingPostId;
-            if (editingPostId) {
-                // 编辑现有文章
-                const postId = parseInt(editingPostId);
-                const postIndex = posts.findIndex(p => p.id === postId);
-                if (postIndex !== -1) {
-                    posts[postIndex] = {
-                        ...posts[postIndex],
-                        title,
-                        date,
-                        readTime,
-                        excerpt
-                    };
-                }
-            } else {
-                // 新建文章
-                const newPost = {
-                    id: Date.now(),
-                    title,
-                    date,
-                    readTime,
-                    excerpt
-                };
-                posts.unshift(newPost);
-            }
-
-            localStorage.setItem('starPosts', JSON.stringify(posts));
-                // 同步到 GitHub
-                await saveToGitHub(SYNC_CONFIG.postsFile, posts);
+    let posts=JSON.parse(localStorage.getItem('starPosts')||JSON.stringify([
+        {id:1,title:'AI 协作 · 重构创造力边界',date:'03.18.2025',readTime:6,excerpt:'当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。'},
+        {id:2,title:'暗色模式设计：超越美学的体验构建',date:'03.08.2025',readTime:4,excerpt:'从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。'},
+        {id:3,title:'独立开发 2.0：工具链与认知盈余',date:'02.24.2025',readTime:9,excerpt:'从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。'},
+        {id:4,title:'星辰语法：生成式艺术与代码',date:'02.10.2025',readTime:5,excerpt:'用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。'}
+    ]));
+    function renderPosts(){
+        const wrap=document.querySelector('.post-list');if(!wrap)return;
+        wrap.innerHTML=posts.map(p=>`
+        <article class="post-item">
+            <div class="post-meta">
+                <span>${p.date}</span><span>◈ ${p.readTime} min read</span>
+                <button class="delete-comment" style="float:right;margin-left:1rem;" data-postid="${p.id}">✖</button>
+                <button class="read-link" style="float:right;background:none;border:none;padding:0;" data-editid="${p.id}">编辑</button>
+            </div>
+            <h3 class="post-title"><a href="#">${escapeHtml(p.title)}</a></h3>
+            <p class="post-excerpt">${escapeHtml(p.excerpt)}</p>
+            <a href="#" class="read-link">探索 →</a>
+        </article>`).join('');
+        document.querySelectorAll('[data-postid]').forEach(btn=>{
+            btn.addEventListener('click',async(e)=>{
+                e.preventDefault();let id=parseInt(btn.dataset.postid);
+                posts=posts.filter(x=>x.id!==id);
+                localStorage.setItem('starPosts',JSON.stringify(posts));
+                await saveToGitHub(SYNC_CONFIG.postsFile,posts);
                 renderPosts();
-                postEditorModal.style.display = 'none';
-
-            // 显示成功提示
-            let toast = document.createElement('div');
-            toast.textContent = '✦ 文章保存成功 ✦';
-            toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(108,92,231,0.75); backdrop-filter:blur(12px); color:#ffffff; padding:8px 20px; border-radius:60px; font-size:0.75rem; border:0.5px solid rgba(255,255,255,0.3); z-index:1000;';
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 1800);
+            });
         });
+        document.querySelectorAll('[data-editid]').forEach(btn=>{
+            btn.addEventListener('click',e=>{
+                e.preventDefault();let id=parseInt(btn.dataset.editid);
+                let obj=posts.find(x=>x.id===id);
+                if(!obj)return;
+                document.getElementById('postTitle').value=obj.title;
+                document.getElementById('postExcerpt').value=obj.excerpt;
+                document.getElementById('postEditorModal').style.display='flex';
+                document.getElementById('postEditorModal').dataset.editing=id;
+            });
+        });
+    }
+    const publishBtn=document.getElementById('publishPostBtn');
+    const editModal=document.getElementById('postEditorModal');
+    const closeEdit=document.getElementById('closeEditorBtn');
+    const cancelEdit=document.getElementById('cancelPostBtn');
+    const saveEdit=document.getElementById('savePostBtn');
+    publishBtn?.addEventListener('click',()=>{
+        document.getElementById('postTitle').value='';
+        document.getElementById('postExcerpt').value='';
+        delete editModal.dataset.editing;
+        editModal.style.display='flex';
+    });
+    closeEdit?.addEventListener('click',()=>editModal.style.display='none');
+    cancelEdit?.addEventListener('click',()=>editModal.style.display='none');
+    saveEdit?.addEventListener('click',async()=>{
+        let title=document.getElementById('postTitle').value.trim();
+        let excerpt=document.getElementById('postExcerpt').value.trim();
+        if(!title||!excerpt){alert('请填写标题和内容');return;}
+        let now=new Date();
+        let d=`${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}.${now.getFullYear()}`;
+        let rt=Math.max(1,Math.ceil(excerpt.length/200));
+        let eid=editModal.dataset.editing;
+        if(eid){
+            let id=parseInt(eid);
+            let idx=posts.findIndex(x=>x.id===id);
+            if(idx>-1) posts[idx]={...posts[idx],title,date:d,readTime:rt,excerpt};
+        }else{
+            posts.unshift({id:Date.now(),title,date:d,readTime:rt,excerpt});
+        }
+        localStorage.setItem('starPosts',JSON.stringify(posts));
+        await saveToGitHub(SYNC_CONFIG.postsFile,posts);
+        renderPosts();
+        editModal.style.display='none';
+        let t=document.createElement('div');
+        t.innerText='✦ 文章保存成功 ✦';
+        t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);backdrop-filter:blur(12px);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
+        document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
+    });
+    editModal?.addEventListener('click',e=>{if(e.target===editModal)editModal.style.display='none';});
+    renderPosts();
 
-        // 点击模态框外部关闭
-        postEditorModal?.addEventListener('click', (e) => {
-            if (e.target === postEditorModal) {
-                postEditorModal.style.display = 'none';
+    const tabs=document.querySelectorAll('.tab-btn');
+    const panes={comments:document.getElementById('comments-pane'),upload:document.getElementById('upload-pane'),ai:document.getElementById('ai-pane')};
+    tabs.forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            let k=btn.dataset.tab;
+            tabs.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+            Object.values(panes).forEach(p=>p.classList.remove('active-pane'));
+            if(panes[k])panes[k].classList.add('active-pane');
+        });
+    });
+
+    document.querySelectorAll('.decor-nav a').forEach(link=>{
+        link.addEventListener('click',e=>{
+            e.preventDefault();
+            document.querySelectorAll('.decor-nav a').forEach(a=>a.classList.remove('active'));
+            link.classList.add('active');
+            let txt=link.textContent;
+            const wrap=document.querySelector('.post-list');
+            if(txt==='星尘笔记')renderPosts();
+            else if(txt==='灵感清单')wrap.innerHTML=`<div style="text-align:center;padding:2rem;"><h3 style="font-size:1.2rem;margin-bottom:1rem;color:#cbc3ff;">✨灵感清单</h3><p style="color:#b9c2e6;margin-bottom:2rem;">记录你的创意灵感</p></div>`;
+            else if(txt==='深空手记')wrap.innerHTML=`<div style="text-align:center;padding:2rem;"><h3 style="font-size:1.2rem;margin-bottom:1rem;color:#cbc3ff;">🌌深空手记</h3><p style="color:#b9c2e6;margin-bottom:2rem;">探索技术与创意的边界</p></div>`;
+        });
+    });
+
+    document.querySelectorAll('.read-link,.post-title a').forEach(a=>{
+        a.addEventListener('click',e=>{
+            if(a.getAttribute('href')==='#'){
+                e.preventDefault();
+                let t=document.createElement('div');
+                t.innerText='✦ 完整星文即将抵达，敬请期待 ✦';
+                t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);color:#d9d4ff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
+                document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
             }
         });
+    });
 
-        // 初始化渲染文章
-        renderPosts();
-    })();
+    const apiKeyInput=document.getElementById('deepseekApiKey');
+    const saveApiKeyBtn=document.getElementById('saveApiKeyBtn');
+    const clearChatBtn=document.getElementById('clearChatBtn');
+    const chatMessages=document.getElementById('chatMessages');
+    const chatInput=document.getElementById('chatInput');
+    const sendChatBtn=document.getElementById('sendChatBtn');
+    const typingTip=document.getElementById('typingIndicator');
+    let chatHis=JSON.parse(localStorage.getItem('aiConversation')||'[]');
+    let nowKey=localStorage.getItem('deepseekApiKey')||'';
+    if(nowKey)apiKeyInput.value=nowKey;
+    function renderChat(){
+        if(!chatMessages)return;chatMessages.innerHTML='';
+        chatHis.forEach(m=>{
+            let d=document.createElement('div');d.className=`message ${m.role}`;
+            let c=document.createElement('div');c.className='message-content';c.innerText=m.content;
+            d.appendChild(c);chatMessages.appendChild(d);
+        });
+        if(chatHis.length===0) chatMessages.innerHTML=`<div class="message assistant"><div class="message-content">✨ 我是你的深空AI助手，基于 DeepSeek 模型。输入你的问题，一起探索星辰大海～</div></div>`;
+        chatMessages.scrollTop=chatMessages.scrollHeight;
+    }
+    saveApiKeyBtn?.addEventListener('click',()=>{
+        let k=apiKeyInput.value.trim();
+        if(k.startsWith('sk-')&&k.length>30){
+            localStorage.setItem('deepseekApiKey',k);nowKey=k;
+            let t=document.createElement('div');t.innerText='✦ API Key 已保存 ✦';
+            t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
+            document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
+        }else alert('请输入合法 DeepSeek sk- 开头密钥');
+    });
+    clearChatBtn?.addEventListener('click',()=>{chatHis=[];localStorage.setItem('aiConversation',JSON.stringify(chatHis));renderChat();});
+    async function callAI(text){
+        if(!nowKey)throw new Error('未配置API Key');
+        let msgs=[...chatHis,{role:'user',content:text}];
+        let res=await fetch('https://api.deepseek.com/v1/chat/completions',{
+            method:'POST',
+            headers:{'Content-Type':'application/json','Authorization':`Bearer ${nowKey}`},
+            body:JSON.stringify({model:'deepseek-chat',messages:msgs,temperature:0.7,max_tokens:800})
+        });
+        if(!res.ok)throw new Error('请求失败');
+        let d=await res.json();
+        return d.choices[0].message.content;
+    }
+    async function sendChat(){
+        let txt=chatInput.value.trim();if(!txt)return;
+        if(!nowKey){alert('请先填写DeepSeek密钥');return;}
+        chatHis.push({role:'user',content:txt});renderChat();chatInput.value='';typingTip.style.display='block';
+        try{
+            let rep=await callAI(txt);
+            chatHis.push({role:'assistant',content:rep});
+            if(chatHis.length>20)chatHis=chatHis.slice(-20);
+            localStorage.setItem('aiConversation',JSON.stringify(chatHis));renderChat();
+        }catch(e){
+            chatHis.push({role:'assistant',content:'❌ 请求异常：'+e.message});renderChat();
+        }finally{typingTip.style.display='none';}
+    }
+    sendChatBtn?.addEventListener('click',sendChat);
+    chatInput?.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}});
+    renderChat();
+})();
 </script>
 </body>
 </html>
