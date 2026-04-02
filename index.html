@@ -153,7 +153,7 @@
         .tab-btn.active { background: rgba(108,92,231,0.3); color: white; box-shadow: 0 0 6px rgba(108,92,231,0.3); }
         .tab-pane { display: none; animation: fadeIn 0.2s ease; }
         .tab-pane.active-pane { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1, transform: translateY(0); } }
         .comment-list { max-height: 280px; overflow-y: auto; margin-bottom: 1rem; padding-right: 0.3rem; }
         .comment-item { background: rgba(255,255,255,0.03); border-radius: 1rem; padding: 0.7rem; margin-bottom: 0.8rem; border-left: 2px solid #6c5ce7; }
         .comment-name { font-weight: 600; font-size: 0.8rem; color: #cbc3ff; }
@@ -221,6 +221,7 @@
             <a href="#">首页</a>
             <a href="#">归档</a>
             <a href="https://github.com/tjh0614" target="_blank" rel="noopener">GitHub</a>
+            <button class="btn" onclick="initFullSync()" style="margin-left:10px">🔄 刷新同步</button>
         </div>
     </nav>
     <div class="grid-main">
@@ -309,6 +310,8 @@
     </div>
 </div>
 <script>
+// 全局暴露同步函数
+let initFullSync;
 (function() {
     // ========== 已自动填入你的 GitHub 配置 ==========
     const GITHUB_OWNER = "tjh0614";
@@ -383,49 +386,43 @@
     };
 
     async function fetchFromGitHub(filePath){
-        if(!githubConfig.token) return null;
+        if(!githubConfig.token) return [];
         try{
-            const c=new AbortController();const t=setTimeout(()=>c.abort(),5000);
             const res=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
-                headers:{Authorization:`token ${githubConfig.token}`},signal:c.signal
+                headers:{Authorization:`token ${githubConfig.token}`}
             });
-            clearTimeout(t);
             if(res.ok){let d=await res.json(); return JSON.parse(atob(d.content));}
-            if(res.status===404) return [];
-            return null;
+            return [];
         }catch(e){
-            console.error("拉取云端失败：",e);
-            return null;
+            console.error("拉取失败：",e);
+            return [];
         }
     }
     async function saveToGitHub(filePath,data){
         if(!githubConfig.token) return false;
         try{
-            const c1=new AbortController();const t1=setTimeout(()=>c1.abort(),5000);
             let sha=null;
             const chk=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
-                headers:{Authorization:`token ${githubConfig.token}`},signal:c1.signal
+                headers:{Authorization:`token ${githubConfig.token}`}
             });
-            clearTimeout(t1);
             if(chk.ok){let d=await chk.json();sha=d.sha;}
             const content=JSON.stringify(data,null,2);
             const b64=btoa(unescape(encodeURIComponent(content)));
-            const c2=new AbortController();const t2=setTimeout(()=>c2.abort(),10000);
             const res=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
                 method:'PUT',
                 headers:{Authorization:`token ${githubConfig.token}`,'Content-Type':'application/json'},
-                body:JSON.stringify({message:`Update ${filePath}`,content:b64,branch:'main',sha:sha}),
-                signal:c2.signal
+                body:JSON.stringify({message:`同步数据`,content:b64,branch:'main',sha:sha})
             });
-            clearTimeout(t2);
             return res.ok;
         }catch(e){
-            console.error("推送云端失败：",e);
+            console.error("推送失败：",e);
             return false;
         }
     }
 
-    let comments=JSON.parse(localStorage.getItem('starComments')||'[]');
+    let comments = [];
+    let posts = [];
+
     function renderComments(){
         const wrap=document.getElementById('commentList');
         if(!wrap)return;
@@ -441,6 +438,7 @@
             });
         });
     }
+
     document.getElementById('submitComment')?.addEventListener('click',async()=>{
         let n=document.getElementById('commentName').value.trim()||'星际旅人';
         let t=document.getElementById('commentText').value.trim();
@@ -448,7 +446,6 @@
         n=escapeHtml(n.slice(0,50));t=escapeHtml(t.slice(0,500));
         let time=new Date().toLocaleString();
         comments.unshift({name:n,text:t,time});
-        if(comments.length>100) comments=comments.slice(0,100);
         localStorage.setItem('starComments',JSON.stringify(comments));
         await saveToGitHub(SYNC_CONFIG.commentsFile,comments);
         renderComments();
@@ -456,12 +453,6 @@
         document.getElementById('commentText').value='';
     });
 
-    let posts=JSON.parse(localStorage.getItem('starPosts')||JSON.stringify([
-        {id:1,title:'AI 协作 · 重构创造力边界',date:'03.18.2025',readTime:6,excerpt:'当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。'},
-        {id:2,title:'暗色模式设计：超越美学的体验构建',date:'03.08.2025',readTime:4,excerpt:'从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。'},
-        {id:3,title:'独立开发 2.0：工具链与认知盈余',date:'02.24.2025',readTime:9,excerpt:'从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。'},
-        {id:4,title:'星辰语法：生成式艺术与代码',date:'02.10.2025',readTime:5,excerpt:'用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。'}
-    ]));
     function renderPosts(){
         const wrap=document.querySelector('.post-list');if(!wrap)return;
         wrap.innerHTML=posts.map(p=>`
@@ -496,6 +487,7 @@
             });
         });
     }
+
     const publishBtn=document.getElementById('publishPostBtn');
     const editModal=document.getElementById('postEditorModal');
     const closeEdit=document.getElementById('closeEditorBtn');
@@ -535,34 +527,35 @@
     });
     editModal?.addEventListener('click',e=>{if(e.target===editModal)editModal.style.display='none';});
 
-    // ========== 核心：页面打开自动拉取云端，实现跨设备同步 ==========
-    async function initFullSync(){
-        syncTip.innerText = "🔄 正在拉取云端留言/文章...";
-        console.log("【初始化同步】开始拉取GitHub云端数据");
+    // ========== 修复核心：强制云端覆盖本地，解决不同步 ==========
+    initFullSync = async function(){
+        syncTip.innerText = "🔄 正在拉取云端数据...";
+        console.log("强制同步云端数据");
 
-        // 同步留言
-        const cloudComments = await fetchFromGitHub(SYNC_CONFIG.commentsFile);
-        if(cloudComments !== null){
-            comments = cloudComments;
-            localStorage.setItem('starComments',JSON.stringify(comments));
-            renderComments();
-            console.log("✅ 留言同步完成");
+        // 强制拉取云端留言，覆盖本地
+        comments = await fetchFromGitHub(SYNC_CONFIG.commentsFile);
+        localStorage.setItem('starComments',JSON.stringify(comments));
+        renderComments();
+
+        // 强制拉取云端文章，覆盖本地
+        posts = await fetchFromGitHub(SYNC_CONFIG.postsFile);
+        // 如果云端为空，加载默认文章
+        if(posts.length === 0){
+            posts = [
+                {id:1,title:'AI 协作 · 重构创造力边界',date:'03.18.2025',readTime:6,excerpt:'当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。'},
+                {id:2,title:'暗色模式设计：超越美学的体验构建',date:'03.08.2025',readTime:4,excerpt:'从对比度到情感映射，如何让黑色界面既有深度又不失优雅？解构深色UI的微妙心理学。'},
+                {id:3,title:'独立开发 2.0：工具链与认知盈余',date:'02.24.2025',readTime:9,excerpt:'从 0 到产品，AI 时代独立开发者如何利用新杠杆？分享我的工作流与年度反思。'},
+                {id:4,title:'星辰语法：生成式艺术与代码',date:'02.10.2025',readTime:5,excerpt:'用 shader 与随机噪声创造无尽星空，探索数学之美与数字诗意的交汇点。'}
+            ];
         }
+        localStorage.setItem('starPosts',JSON.stringify(posts));
+        renderPosts();
 
-        // 同步文章
-        const cloudPosts = await fetchFromGitHub(SYNC_CONFIG.postsFile);
-        if(cloudPosts !== null){
-            posts = cloudPosts;
-            localStorage.setItem('starPosts',JSON.stringify(posts));
-            renderPosts();
-            console.log("✅ 文章同步完成");
-        }
+        syncTip.innerText = "✅ 同步完成！";
+        setTimeout(()=>syncTip.remove(),2000);
+    };
 
-        syncTip.innerText = "✅ 云端同步完成";
-        setTimeout(()=>syncTip.remove(),2500);
-    }
-
-    // 页面加载自动同步
+    // 页面加载立即强制同步
     window.addEventListener("load", async ()=>{
         await initFullSync();
     });
@@ -654,7 +647,7 @@
         try{
             let rep=await callAI(txt);
             chatHis.push({role:'assistant',content:rep});
-            if(chatHis.length>20)chatHis=chatHis.slice(-20);
+            if(chatHis.length>20)chatHis=slice(-20);
             localStorage.setItem('aiConversation',JSON.stringify(chatHis));renderChat();
         }catch(e){
             chatHis.push({role:'assistant',content:'❌ 请求异常：'+e.message});renderChat();
