@@ -297,20 +297,7 @@
             <div id="upload-pane" class="tab-pane">
                 <div style="margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
                     <h4 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.6rem; color: #cbc3ff;">🌌 GitHub 存储</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem;">
-                        <div style="display: flex; flex-direction: column; gap: 0.2rem;">
-                            <label style="font-size: 0.7rem; color: #b9c2e6;">GitHub Owner</label>
-                            <input type="text" id="githubOwner" value="tjh0614" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 0.4rem 0.6rem; color: white; font-family: inherit; font-size: 0.75rem;">
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 0.2rem;">
-                            <label style="font-size: 0.7rem; color: #b9c2e6;">GitHub Repo</label>
-                            <input type="text" id="githubRepo" value="blog-uploads" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 0.4rem 0.6rem; color: white; font-family: inherit; font-size: 0.75rem;">
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 0.2rem;">
-                            <label style="font-size: 0.7rem; color: #b9c2e6;">GitHub Token</label>
-                            <input type="password" id="githubToken" placeholder="ghp_..." style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 0.4rem 0.6rem; color: white; font-family: inherit; font-size: 0.75rem;">
-                        </div>
-                        <button class="btn" id="saveGithubConfig" style="font-size: 0.7rem; padding: 0.3rem 0.8rem;">💾 保存配置</button>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem;">
                     </div>
                 </div>
                 <div id="uploadProgress" style="display: none; margin-bottom: 1rem; padding: 0.8rem; background: rgba(0,0,0,0.3); border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
@@ -426,11 +413,11 @@
         const previewDiv=document.getElementById('filePreview');
         
         let uploadedFiles=JSON.parse(localStorage.getItem('starFiles')||'[]');
-        // GitHub 配置，默认值可由用户修改
-        let githubConfig={
-            owner:localStorage.getItem('githubOwner') || 'tjh0614',
-            repo:localStorage.getItem('githubRepo') || 'blog-uploads',
-            token:localStorage.getItem('githubToken') || ''
+        // 硬编码 GitHub 配置
+        const githubConfig={
+            owner:'tjh0614',
+            repo:'blog-uploads',
+            token:'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'
         };
         
         // DOM 元素
@@ -485,44 +472,8 @@
             uploadProgress.style.display='none';
         }
         
-        // 保存 GitHub 配置
-        document.getElementById('saveGithubConfig')?.addEventListener('click', () => {
-            const owner = document.getElementById('githubOwner').value.trim();
-            const repo = document.getElementById('githubRepo').value.trim();
-            const token = document.getElementById('githubToken').value.trim();
-            
-            if (!owner || !repo || !token) {
-                alert('请填写完整的 GitHub 配置信息');
-                return;
-            }
-            
-            githubConfig = {
-                owner,
-                repo,
-                token
-            };
-            
-            // 保存到 localStorage
-            localStorage.setItem('githubOwner', owner);
-            localStorage.setItem('githubRepo', repo);
-            localStorage.setItem('githubToken', token);
-            
-            let toast = document.createElement('div');
-            toast.textContent = '✦ GitHub 配置已保存 ✦';
-            toast.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(108,92,231,0.75); backdrop-filter:blur(12px); color:#ffffff; padding:8px 20px; border-radius:60px; font-size:0.75rem; border:0.5px solid rgba(255,255,255,0.3); z-index:1000;';
-            document.body.appendChild(toast);
-            setTimeout(()=>toast.remove(), 1800);
-        });
-        
-        // 加载保存的 GitHub 配置
-        document.getElementById('githubOwner').value = localStorage.getItem('githubOwner') || 'tjh0614';
-        document.getElementById('githubRepo').value = localStorage.getItem('githubRepo') || 'blog-uploads';
-        document.getElementById('githubToken').value = localStorage.getItem('githubToken') || '';
-        
         // 初始化获取 GitHub 用户信息
-        if (githubConfig.token) {
-            fetchGitHubUserInfo();
-        }
+        fetchGitHubUserInfo();
         
         // 上传到 GitHub
         async function uploadToGitHub(file, content){
