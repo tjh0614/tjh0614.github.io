@@ -10,12 +10,12 @@
     <link rel="icon" type="image/x-icon" href="/tjh.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #000000;
+            background: #000;
             min-height: 100vh;
             padding: 2rem 1.5rem;
             position: relative;
@@ -23,7 +23,7 @@
             color: #eef2ff;
             overflow-x: hidden;
         }
-        #starCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: block; z-index: 0; pointer-events: none; background: #000000; }
+        #starCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: block; z-index: 0; pointer-events: none; background: #000; }
         .blog-container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
         .nav {
             display: flex;
@@ -37,14 +37,15 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 600;
-            background: linear-gradient(125deg, #ffffff, #a09eff);
+            background: linear-gradient(125deg, #fff, #a09eff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a { text-decoration: none; color: #b9c2e6; font-weight: 450; font-size: 0.9rem; transition: color 0.2s; }
-        .nav-links a:hover { color: #ffffff; }
+        .nav-links a:hover { color: #fff; }
+        .sync-tip { position: fixed; top:10px; left:50%; transform:translateX(-50%); background:rgba(108,92,231,0.8); color:#fff; padding:4px 16px; border-radius:20px; font-size:0.7rem; z-index:9999; }
         .grid-main {
             display: grid;
             grid-template-columns: 280px 1fr 300px;
@@ -55,7 +56,7 @@
             backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 1.8rem 1.5rem;
-            border: 0.5px solid rgba(255, 255, 255, 0.06);
+            border: 0.5px solid rgba(255,255,255,0.06);
             height: fit-content;
         }
         .avatar {
@@ -72,31 +73,31 @@
             overflow:hidden;
         }
         .avatar img{width:100%;height:100%;object-fit:cover;}
-        .name { font-size: 1.6rem; font-weight: 600; text-align: center; color: #ffffff; margin-bottom: 0.2rem; }
+        .name { font-size: 1.6rem; font-weight: 600; text-align: center; color: #fff; margin-bottom: 0.2rem; }
         .badge { text-align: center; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #8f8bbe; margin-bottom: 1.5rem; }
-        .bio { font-size: 0.85rem; color: #cdd4f0; line-height: 1.6; margin: 1rem 0; border-left: 1px solid rgba(108, 92, 231, 0.4); padding-left: 1rem; }
+        .bio { font-size: 0.85rem; color: #cdd4f0; line-height: 1.6; margin: 1rem 0; border-left: 1px solid rgba(108,92,231,0.4); padding-left: 1rem; }
         .skill-set { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 1.8rem; }
-        .skill { background: rgba(255, 255, 255, 0.04); border: 0.5px solid rgba(255,255,255,0.1); padding: 0.3rem 0.9rem; border-radius: 30px; font-size: 0.7rem; font-weight: 500; color: #cfd9ff; transition: all 0.2s; }
-        .skill:hover { background: rgba(108, 92, 231, 0.3); }
+        .skill { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); padding: 0.3rem 0.9rem; border-radius: 30px; font-size: 0.7rem; font-weight: 500; color: #cfd9ff; transition: all 0.2s; }
+        .skill:hover { background: rgba(108,92,231,0.3); }
         .contact-links { display: flex; flex-direction: column; gap: 0.7rem; }
         .contact-link {
             display: flex;
             align-items: center;
             gap: 0.8rem;
             padding: 0.6rem 0.8rem;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255,255,255,0.02);
             border-radius: 1rem;
             text-decoration: none;
             color: #e2e6ff;
             transition: all 0.2s;
             border: 0.5px solid rgba(255,255,255,0.03);
         }
-        .contact-link:hover { background: rgba(108, 92, 231, 0.15); transform: translateX(3px); }
+        .contact-link:hover { background: rgba(108,92,231,0.15); transform: translateX(3px); }
         .contact-icon { font-size: 1.2rem; width: 28px; }
         .contact-text { font-size: 0.85rem; font-weight: 500; }
         .contact-sub { font-size: 0.65rem; color: #8f99cf; }
         .articles-area {
-            background: rgba(6, 6, 10, 0.45);
+            background: rgba(6,6,10,0.45);
             backdrop-filter: blur(8px);
             border-radius: 2rem;
             padding: 1.8rem;
@@ -104,7 +105,7 @@
         }
         .decor-nav { display: flex; gap: 2rem; margin-bottom: 1.8rem; padding-bottom: 0.6rem; border-bottom: 0.5px solid rgba(255,255,255,0.1); }
         .decor-nav a { text-decoration: none; color: #a5aedb; font-size: 0.8rem; font-weight: 500; transition: color 0.2s; position: relative; }
-        .decor-nav a:hover { color: #ffffff; }
+        .decor-nav a:hover { color: #fff; }
         .decor-nav a.active { color: #c0b7ff; }
         .decor-nav a.active::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 1.5px; background: linear-gradient(90deg, #6c5ce7, #a29bfe); }
         .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem; border-bottom: 0.5px solid rgba(255,255,255,0.1); padding-bottom: 0.8rem; }
@@ -113,17 +114,17 @@
         .post-item { padding-bottom: 1.2rem; border-bottom: 0.5px solid rgba(255,255,255,0.05); }
         .post-meta { display: flex; gap: 1rem; font-size: 0.7rem; color: #949bcb; margin-bottom: 0.5rem; }
         .post-title { font-size: 1.3rem; font-weight: 600; margin: 0.3rem 0 0.6rem; }
-        .post-title a { text-decoration: none; color: #ffffff; transition: color 0.2s; }
+        .post-title a { text-decoration: none; color: #fff; transition: color 0.2s; }
         .post-title a:hover { color: #b9adff; }
         .post-excerpt { color: #bac2e3; font-size: 0.85rem; line-height: 1.55; margin-bottom: 0.8rem; }
         .read-link { font-size: 0.75rem; color: #9b93e0; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.2s; }
         .read-link:hover { gap: 8px; }
         .sidebar-right {
-            background: rgba(8, 8, 12, 0.65);
+            background: rgba(8,8,12,0.65);
             backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 1.5rem;
-            border: 0.5px solid rgba(255, 255, 255, 0.06);
+            border: 0.5px solid rgba(255,255,255,0.06);
             height: fit-content;
         }
         .interactive-tabs {
@@ -149,7 +150,7 @@
             flex: 1;
             text-align: center;
         }
-        .tab-btn.active { background: rgba(108, 92, 231, 0.3); color: white; box-shadow: 0 0 6px rgba(108,92,231,0.3); }
+        .tab-btn.active { background: rgba(108,92,231,0.3); color: white; box-shadow: 0 0 6px rgba(108,92,231,0.3); }
         .tab-pane { display: none; animation: fadeIn 0.2s ease; }
         .tab-pane.active-pane { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -207,10 +208,11 @@
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #0a0a12; }
         ::-webkit-scrollbar-thumb { background: #3a3470; border-radius: 4px; }
-        ::selection { background: rgba(108, 92, 231, 0.4); color: white; }
+        ::selection { background: rgba(108,92,231,0.4); color: white; }
     </style>
 </head>
 <body>
+<div id="syncTip" class="sync-tip">🔄 启动云端同步...</div>
 <canvas id="starCanvas"></canvas>
 <div class="blog-container">
     <nav class="nav">
@@ -244,7 +246,7 @@
         <div id="postEditorModal">
             <div style="background: rgba(10,10,20,0.9); border-radius: 2rem; padding: 2rem; width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h3 style="color: #ffffff; font-size: 1.3rem; font-weight: 600;">✨ 发布新文章</h3>
+                    <h3 style="color: #fff; font-size: 1.3rem; font-weight: 600;">✨ 发布新文章</h3>
                     <button id="closeEditorBtn" style="background: none; border: none; color: #9b93e0; font-size: 1.5rem; cursor: pointer;">×</button>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
@@ -308,13 +310,21 @@
 </div>
 <script>
 (function() {
+    // ========== 已自动填入你的 GitHub 配置 ==========
+    const GITHUB_OWNER = "tjh0614";
+    const GITHUB_REPO = "blog-uploads";
+    const GITHUB_TOKEN = "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";
+    // ==============================================
+
+    const syncTip = document.getElementById("syncTip");
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
     let stars = [], meteors = [];
     let width, height;
     let targetOffsetX = 0, targetOffsetY = 0, currentOffsetX = 0, currentOffsetY = 0;
     const STAR_COUNT = 600, MAX_OFFSET = 18;
-    const starColors = ['rgba(255, 245, 225, {alpha})','rgba(235, 240, 255, {alpha})','rgba(255, 235, 210, {alpha})','rgba(210, 225, 255, {alpha})'];
+    const starColors = ['rgba(255,245,225,{alpha})','rgba(235,240,255,{alpha})','rgba(255,235,210,{alpha})','rgba(210,225,255,{alpha})'];
+
     class Star {
         constructor(x,y,radius,bright,speed,colorType){ this.x=x; this.y=y; this.radius=radius; this.baseBrightness=bright; this.twinkleSpeed=speed; this.phase=Math.random()*Math.PI*2; this.colorType=colorType; this.depthFactor=Math.min(1.0, radius/2.8); }
         getAlpha(now){ let twinkle=0.6+0.4*Math.sin(now*this.twinkleSpeed+this.phase); return Math.min(0.95, Math.max(0.15, this.baseBrightness*twinkle)); }
@@ -337,7 +347,7 @@
         if(!ctx) return; 
         let nowSec=nowMs/1000; 
         ctx.clearRect(0,0,width,height); 
-        ctx.fillStyle='#000000'; 
+        ctx.fillStyle='#000'; 
         ctx.fillRect(0,0,width,height); 
         let offX=currentOffsetX, offY=currentOffsetY;
         for(let s of stars){ 
@@ -362,24 +372,34 @@
     }
 
     const githubConfig={
-        owner:'tjh0614',
-        repo:'blog-uploads',
-        token:localStorage.getItem('githubToken')||''
+        owner: GITHUB_OWNER,
+        repo: GITHUB_REPO,
+        token: GITHUB_TOKEN
     };
-    const SYNC_CONFIG={commentsFile:'data/comments.json',postsFile:'data/posts.json',filesFile:'data/files.json'};
+    const SYNC_CONFIG={
+        commentsFile:'data/comments.json',
+        postsFile:'data/posts.json',
+        filesFile:'data/files.json'
+    };
 
     async function fetchFromGitHub(filePath){
+        if(!githubConfig.token) return null;
         try{
             const c=new AbortController();const t=setTimeout(()=>c.abort(),5000);
             const res=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
                 headers:{Authorization:`token ${githubConfig.token}`},signal:c.signal
             });
             clearTimeout(t);
-            if(res.ok){let d=await res.json();return JSON.parse(atob(d.content));}
-            if(res.status===404)return[];return null;
-        }catch{return null;}
+            if(res.ok){let d=await res.json(); return JSON.parse(atob(d.content));}
+            if(res.status===404) return [];
+            return null;
+        }catch(e){
+            console.error("拉取云端失败：",e);
+            return null;
+        }
     }
     async function saveToGitHub(filePath,data){
+        if(!githubConfig.token) return false;
         try{
             const c1=new AbortController();const t1=setTimeout(()=>c1.abort(),5000);
             let sha=null;
@@ -399,7 +419,10 @@
             });
             clearTimeout(t2);
             return res.ok;
-        }catch{return false;}
+        }catch(e){
+            console.error("推送云端失败：",e);
+            return false;
+        }
     }
 
     let comments=JSON.parse(localStorage.getItem('starComments')||'[]');
@@ -425,14 +448,13 @@
         n=escapeHtml(n.slice(0,50));t=escapeHtml(t.slice(0,500));
         let time=new Date().toLocaleString();
         comments.unshift({name:n,text:t,time});
-        if(comments.length>100)comments=comments.slice(0,100);
+        if(comments.length>100) comments=comments.slice(0,100);
         localStorage.setItem('starComments',JSON.stringify(comments));
         await saveToGitHub(SYNC_CONFIG.commentsFile,comments);
         renderComments();
         document.getElementById('commentName').value='';
         document.getElementById('commentText').value='';
     });
-    renderComments();
 
     let posts=JSON.parse(localStorage.getItem('starPosts')||JSON.stringify([
         {id:1,title:'AI 协作 · 重构创造力边界',date:'03.18.2025',readTime:6,excerpt:'当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。'},
@@ -507,13 +529,45 @@
         renderPosts();
         editModal.style.display='none';
         let t=document.createElement('div');
-        t.innerText='✦ 文章保存成功 ✦';
+        t.innerText='✦ 文章已云端同步 ✦';
         t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);backdrop-filter:blur(12px);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
         document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
     });
     editModal?.addEventListener('click',e=>{if(e.target===editModal)editModal.style.display='none';});
-    renderPosts();
 
+    // ========== 核心：页面打开自动拉取云端，实现跨设备同步 ==========
+    async function initFullSync(){
+        syncTip.innerText = "🔄 正在拉取云端留言/文章...";
+        console.log("【初始化同步】开始拉取GitHub云端数据");
+
+        // 同步留言
+        const cloudComments = await fetchFromGitHub(SYNC_CONFIG.commentsFile);
+        if(cloudComments !== null){
+            comments = cloudComments;
+            localStorage.setItem('starComments',JSON.stringify(comments));
+            renderComments();
+            console.log("✅ 留言同步完成");
+        }
+
+        // 同步文章
+        const cloudPosts = await fetchFromGitHub(SYNC_CONFIG.postsFile);
+        if(cloudPosts !== null){
+            posts = cloudPosts;
+            localStorage.setItem('starPosts',JSON.stringify(posts));
+            renderPosts();
+            console.log("✅ 文章同步完成");
+        }
+
+        syncTip.innerText = "✅ 云端同步完成";
+        setTimeout(()=>syncTip.remove(),2500);
+    }
+
+    // 页面加载自动同步
+    window.addEventListener("load", async ()=>{
+        await initFullSync();
+    });
+
+    // 标签切换
     const tabs=document.querySelectorAll('.tab-btn');
     const panes={comments:document.getElementById('comments-pane'),upload:document.getElementById('upload-pane'),ai:document.getElementById('ai-pane')};
     tabs.forEach(btn=>{
@@ -544,12 +598,13 @@
                 e.preventDefault();
                 let t=document.createElement('div');
                 t.innerText='✦ 完整星文即将抵达，敬请期待 ✦';
-                t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);color:#d9d4ff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
+                t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);color:#d9d4ff;padding:8px 20px;border-radius:60px;font-size:0.7rem;z-index:2000;';
                 document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
             }
         });
     });
 
+    // AI 功能
     const apiKeyInput=document.getElementById('deepseekApiKey');
     const saveApiKeyBtn=document.getElementById('saveApiKeyBtn');
     const clearChatBtn=document.getElementById('clearChatBtn');
@@ -575,7 +630,7 @@
         if(k.startsWith('sk-')&&k.length>30){
             localStorage.setItem('deepseekApiKey',k);nowKey=k;
             let t=document.createElement('div');t.innerText='✦ API Key 已保存 ✦';
-            t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
+            t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.7rem;z-index:2000;';
             document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
         }else alert('请输入合法 DeepSeek sk- 开头密钥');
     });
