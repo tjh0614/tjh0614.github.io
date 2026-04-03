@@ -153,7 +153,7 @@
         .tab-btn.active { background: rgba(108,92,231,0.3); color: white; box-shadow: 0 0 6px rgba(108,92,231,0.3); }
         .tab-pane { display: none; animation: fadeIn 0.2s ease; }
         .tab-pane.active-pane { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1, transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .comment-list { max-height: 280px; overflow-y: auto; margin-bottom: 1rem; padding-right: 0.3rem; }
         .comment-item { background: rgba(255,255,255,0.03); border-radius: 1rem; padding: 0.7rem; margin-bottom: 0.8rem; border-left: 2px solid #6c5ce7; }
         .comment-name { font-weight: 600; font-size: 0.8rem; color: #cbc3ff; }
@@ -310,14 +310,11 @@
     </div>
 </div>
 <script>
-// 全局暴露同步函数
 let initFullSync;
 (function() {
-    // ========== 已自动填入你的 GitHub 配置 ==========
     const GITHUB_OWNER = "tjh0614";
     const GITHUB_REPO = "blog-uploads";
-    const GITHUB_TOKEN = "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";
-    // ==============================================
+    const GITHUB_TOKEN = "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"; 
 
     const syncTip = document.getElementById("syncTip");
     const canvas = document.getElementById('starCanvas');
@@ -388,30 +385,58 @@ let initFullSync;
     async function fetchFromGitHub(filePath){
         if(!githubConfig.token) return [];
         try{
-            const res=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
-                headers:{Authorization:`token ${githubConfig.token}`}
+            const apiUrl = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`;
+            const res=await fetch(apiUrl,{
+                headers:{
+                    'Authorization': `token ${githubConfig.token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                }
             });
-            if(res.ok){let d=await res.json(); return JSON.parse(atob(d.content));}
+            if(res.ok){
+                let d=await res.json(); 
+                let content = atob(d.content.replace(/\s/g, ''));
+                return JSON.parse(content);
+            }
             return [];
         }catch(e){
             console.error("拉取失败：",e);
             return [];
         }
     }
+
     async function saveToGitHub(filePath,data){
         if(!githubConfig.token) return false;
         try{
             let sha=null;
-            const chk=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
-                headers:{Authorization:`token ${githubConfig.token}`}
+            const chkUrl = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`;
+            const chk=await fetch(chkUrl,{
+                headers:{
+                    'Authorization': `token ${githubConfig.token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
             });
-            if(chk.ok){let d=await chk.json();sha=d.sha;}
+            if(chk.ok){
+                let d=await chk.json();
+                sha=d.sha;
+            }
             const content=JSON.stringify(data,null,2);
-            const b64=btoa(unescape(encodeURIComponent(content)));
-            const res=await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`,{
+            const b64 = btoa(unescape(encodeURIComponent(content)));
+            
+            const uploadUrl = `https://cors-anywhere.herokuapp.com/https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${filePath}`;
+            const res=await fetch(uploadUrl,{
                 method:'PUT',
-                headers:{Authorization:`token ${githubConfig.token}`,'Content-Type':'application/json'},
-                body:JSON.stringify({message:`同步数据`,content:b64,branch:'main',sha:sha})
+                headers:{
+                    'Authorization': `token ${githubConfig.token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    message:`同步数据 ${new Date().toLocaleString()}`,
+                    content:b64,
+                    branch:'main',
+                    sha:sha
+                })
             });
             return res.ok;
         }catch(e){
@@ -447,10 +472,19 @@ let initFullSync;
         let time=new Date().toLocaleString();
         comments.unshift({name:n,text:t,time});
         localStorage.setItem('starComments',JSON.stringify(comments));
-        await saveToGitHub(SYNC_CONFIG.commentsFile,comments);
-        renderComments();
-        document.getElementById('commentName').value='';
-        document.getElementById('commentText').value='';
+        const success = await saveToGitHub(SYNC_CONFIG.commentsFile,comments);
+        if(success){
+            renderComments();
+            document.getElementById('commentName').value='';
+            document.getElementById('commentText').value='';
+            let tip=document.createElement('div');
+            tip.innerText='✦ 留言已同步到云端 ✦';
+            tip.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
+            document.body.appendChild(tip);
+            setTimeout(()=>tip.remove(),2000);
+        }else{
+            alert('同步失败，请检查 Token 是否正确！');
+        }
     });
 
     function renderPosts(){
@@ -471,8 +505,12 @@ let initFullSync;
                 e.preventDefault();let id=parseInt(btn.dataset.postid);
                 posts=posts.filter(x=>x.id!==id);
                 localStorage.setItem('starPosts',JSON.stringify(posts));
-                await saveToGitHub(SYNC_CONFIG.postsFile,posts);
-                renderPosts();
+                const success = await saveToGitHub(SYNC_CONFIG.postsFile,posts);
+                if(success){
+                    renderPosts();
+                }else{
+                    alert('删除文章同步失败，请检查 Token！');
+                }
             });
         });
         document.querySelectorAll('[data-editid]').forEach(btn=>{
@@ -517,29 +555,29 @@ let initFullSync;
             posts.unshift({id:Date.now(),title,date:d,readTime:rt,excerpt});
         }
         localStorage.setItem('starPosts',JSON.stringify(posts));
-        await saveToGitHub(SYNC_CONFIG.postsFile,posts);
-        renderPosts();
-        editModal.style.display='none';
-        let t=document.createElement('div');
-        t.innerText='✦ 文章已云端同步 ✦';
-        t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);backdrop-filter:blur(12px);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
-        document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
+        const success = await saveToGitHub(SYNC_CONFIG.postsFile,posts);
+        if(success){
+            renderPosts();
+            editModal.style.display='none';
+            let t=document.createElement('div');
+            t.innerText='✦ 文章已云端同步 ✦';
+            t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(108,92,231,0.75);backdrop-filter:blur(12px);color:#fff;padding:8px 20px;border-radius:60px;font-size:0.75rem;z-index:2000;';
+            document.body.appendChild(t);setTimeout(()=>t.remove(),1800);
+        }else{
+            alert('文章同步失败，请检查 Token 是否正确！');
+        }
     });
     editModal?.addEventListener('click',e=>{if(e.target===editModal)editModal.style.display='none';});
 
-    // ========== 修复核心：强制云端覆盖本地，解决不同步 ==========
     initFullSync = async function(){
         syncTip.innerText = "🔄 正在拉取云端数据...";
         console.log("强制同步云端数据");
 
-        // 强制拉取云端留言，覆盖本地
         comments = await fetchFromGitHub(SYNC_CONFIG.commentsFile);
         localStorage.setItem('starComments',JSON.stringify(comments));
         renderComments();
 
-        // 强制拉取云端文章，覆盖本地
         posts = await fetchFromGitHub(SYNC_CONFIG.postsFile);
-        // 如果云端为空，加载默认文章
         if(posts.length === 0){
             posts = [
                 {id:1,title:'AI 协作 · 重构创造力边界',date:'03.18.2025',readTime:6,excerpt:'当模型成为第二大脑，我们如何保持思辨？从提示工程到具身智能，一次关于工具与心流的深度对谈。'},
@@ -555,12 +593,10 @@ let initFullSync;
         setTimeout(()=>syncTip.remove(),2000);
     };
 
-    // 页面加载立即强制同步
     window.addEventListener("load", async ()=>{
         await initFullSync();
     });
 
-    // 标签切换
     const tabs=document.querySelectorAll('.tab-btn');
     const panes={comments:document.getElementById('comments-pane'),upload:document.getElementById('upload-pane'),ai:document.getElementById('ai-pane')};
     tabs.forEach(btn=>{
@@ -597,7 +633,6 @@ let initFullSync;
         });
     });
 
-    // AI 功能
     const apiKeyInput=document.getElementById('deepseekApiKey');
     const saveApiKeyBtn=document.getElementById('saveApiKeyBtn');
     const clearChatBtn=document.getElementById('clearChatBtn');
@@ -647,7 +682,7 @@ let initFullSync;
         try{
             let rep=await callAI(txt);
             chatHis.push({role:'assistant',content:rep});
-            if(chatHis.length>20)chatHis=slice(-20);
+            if(chatHis.length>20)chatHis=chatHis.slice(-20);
             localStorage.setItem('aiConversation',JSON.stringify(chatHis));renderChat();
         }catch(e){
             chatHis.push({role:'assistant',content:'❌ 请求异常：'+e.message});renderChat();
